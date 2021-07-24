@@ -50,6 +50,21 @@ body{
     box-shadow: 6px 6px #78a0b7;
 }
 
+
+/* 中央寄せ付箋(user name) */
+.elem_4{
+    text-align: center;
+    margin-top: 5%;
+    margin-right: 30%;
+    margin-left: 30%;
+    /* width: 400px; */
+    padding: 1em 1em;
+    background: rgb(227, 244, 249);
+    border-left: solid 60px rgb(89, 192, 220);
+    box-shadow: 6px 6px #78a0b7;
+}
+
+
 h1{
     color: rgb(89, 192, 220);
     text-align: center;
@@ -78,6 +93,10 @@ a{
 }
 
 
+
+.logo{
+    width: 50px;
+}
 
 
 
@@ -240,3 +259,7 @@ background    : rgba(89, 192, 220);
 }
 
 
+/* .message{
+    text-align: center;
+    color: ;
+} */
