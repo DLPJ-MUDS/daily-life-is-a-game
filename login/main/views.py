@@ -59,7 +59,26 @@ def login():
 def show_entries_task():
     if (not session.get("logged_in")) or  (not session.get("username")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
-    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"])
+    else:
+        conn = sqlite3.connect("test.db")
+        cur = conn.cursor()
+
+        # dbをpandasで読み出す。
+        df = pd.read_sql('SELECT * FROM Task_text', conn)
+
+        cur.close()
+        conn.close()
+
+        user_ids = df['user_id'].values.tolist()
+        task_texts = df['task_text'].values.tolist()
+        task_ids = df['task_id'].values.tolist()
+        point_m = df['point_m'].values.tolist()
+        point_d = df['point_d'].values.tolist()
+        point_n = df['point_n'].values.tolist()
+
+
+        #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
+    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=task_texts)
 
 #グラフ用
 @app.route("/graph.html")
