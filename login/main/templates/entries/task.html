@@ -77,7 +77,7 @@
                 <button type="submit" class="nohover_btn_pink_2" style="cursor: default" disabled><strong> ☑ FIN </strong></button>
               </div>
               <div style="position: relative;color: rgba(255, 31, 113);">
-                <Strong>{{tasks[key][2][0]}}点</Strong><!-- 朝 0 昼 1 夜 2-->
+                <Strong>{{tasks[key][2][task_time]}}点</Strong><!-- 朝 0 昼 1 夜 2-->
               </div>
               {% else %}
               <div>
@@ -86,7 +86,7 @@
                 <button type="submit" class="btn_pink_2">task done</button>
               </div>
               <div style="position: relative;">
-                <Strong>{{tasks[key][2][0]}}点</Strong><!-- 朝 0 昼 1 夜 2-->
+                <Strong>{{tasks[key][2][task_time]}}点</Strong><!-- 朝 0 昼 1 夜 2-->
               </div>
               {% endif %}
             </div>
