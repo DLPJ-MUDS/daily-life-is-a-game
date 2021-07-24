@@ -2,6 +2,7 @@ from flask import request, redirect, url_for, render_template, flash, session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from main import app
+from main.sent_mail import to_mail
 import datetime
 from models import User
 import sqlite3
@@ -297,3 +298,35 @@ def task_done():
     task = request.form["task"]
     print("done" + task)
     return redirect(url_for("show_entries_task"))
+
+### パスワードの変更
+# メールとユーザ名を入力、メールの送信
+@app.route("/enteremail", methods=["GET", "POST"])
+def enteremail():
+    if request.method == "POST":
+        session["reset_username"] = str(request.form["reset_username"])
+        session["email"] = str(request.form["email"])
+        to_mail(session["reset_username"], session["email"])
+
+        return redirect(url_for("confirm"))
+    return render_template("enteremail.html")
+
+# メールの送信確認
+@app.route("/confirm")
+def confirm():
+    flash("{}にメールを送りました。メールを確認してパスワードリセットを完了させてください。".format(session["email"], category="alert alert-info"))
+    return render_template("confirm.html")
+
+# パスワードの変更
+@app.route("/passwordchange", methods=["GET", "POST"])
+def passwordchange():
+    if request.method == "POST":
+        if request.form["password"] == request.form["password_again"]:
+            flash("パスワードを変更しました")
+            return redirect(url_for("login"))
+        else:
+            flash("同じパスワードを入力して下さい")
+            return render_template("passwordchange.html")
+
+    flash("新しいパスワードを入力してください")
+    return render_template("passwordchange.html")

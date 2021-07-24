@@ -1,0 +1,28 @@
+<!-- このページがパスワードリセットのためのメアド入力ページ -->
+{% extends "layout.html" %}
+{% block title %}
+<title>password reset | daily life is a game</title>
+<meta name="description" content="ログインページ">
+{% endblock %}
+{% block body %}
+    <div class="login_form">
+        <h4>ユーザ名とメールアドレスを入力してください。</h3>
+        <form action="{{ url_for('enteremail') }}" method=post>
+            <div class="login">
+                <label for="InputTitle">User name</label>
+                <div class="right_side">
+                    <input type="text" id="InputTitle" name="reset_username" required>
+                </div>
+            </div>
+
+            <div class="login">
+                <label for="InputTitle">Your email</label>
+                <div class="right_side">
+                    <input type="text" id="InputTitle" name="email" required>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn_pink">Send</button>
+        </form>
+    </div>
+{% endblock %}

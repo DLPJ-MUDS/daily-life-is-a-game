@@ -27,7 +27,7 @@
                 <!--<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">-->
                 <nav class="navbar navbar-expand-sm navbar-dark bg-info fixed-top">
 
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/">
                         <!--DLG-->
                         <div class="logo">
                             <img class="logo" src="static/img/logo_3.png" alt="logo">
@@ -40,6 +40,12 @@
 
                     <div class="collapse navbar-collapse" id="navbar">
                         <ul class="navbar-nav mr-auto">
+                            <!-- ログインしてない場合 -->
+                            {% if not session.logged_in %}
+                            <li class="nav-item  active">
+                                <a class="nav-link" href="./">LOGIN</a>
+                            </li>
+                            {% else %}
                             <li class="nav-item  active">
                                 <a class="nav-link" href="./taskm.html">TASK</a>
                             </li>
@@ -49,14 +55,9 @@
                             </li>
 
                             <li class="nav-item  active">
-                                {% if not session.logged_in %} <!-- ログインしてない場合 -->
-                                <a class="nav-link" href="./">LOGIN</a>
-                                {% else %} <!-- ログインしている場合 -->
                                 <a class="nav-link" href="./">MYPAGE</a>
-                                {% endif %}
                             </li>
-
-                            </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </nav>
