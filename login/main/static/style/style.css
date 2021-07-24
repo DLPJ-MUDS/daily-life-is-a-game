@@ -80,6 +80,104 @@ a{
   }
 
 
-.user{
-    text-align: center;
+
+/* ログイン画面の装飾 */
+.login{
+    margin: 2%;
 }
+
+
+.login_form{
+    text-align: center;
+    margin-top: 5%;
+}
+
+.login label{
+    /* color: rgba(255, 31, 113); */
+    color: rgba(89, 192, 220);
+    font-size: 25px;
+}
+
+.login dt{
+    /* color: rgba(255, 31, 113); */
+    color: rgba(89, 192, 220);
+    font-size: 25px;
+}
+
+.login input[type="text"] {
+    /* font: 20px/24px sans-serif; */
+    /* color: rgba(255, 31, 113); */
+    color: rgba(89, 192, 220);
+    box-sizing: border-box;
+    width: 20%;
+    padding: 10px;
+    transition: 0.3s;
+    letter-spacing: 1px;  
+    border-width: thick;
+    border-style: solid;
+    border-color:  rgba(191, 191, 191);
+}
+
+.login input[type="text"]:focus {
+    border-width: thick;
+    border-style: solid;
+    /* border-color: rgba(255, 31, 113); */
+    border-color: rgba(89, 192, 220);
+    outline: none;
+}
+
+.login input[type="password"] {
+    /* font: 20px/24px sans-serif; */
+    /* color: rgba(255, 31, 113); */
+    color: rgba(89, 192, 220);
+    box-sizing: border-box;
+    width: 20%;
+    padding: 10px;
+    transition: 0.3s;
+    letter-spacing: 1px;  
+    border-width: thick;
+    border-style: solid;
+    border-color:  rgba(191, 191, 191);
+}
+
+.login input[type="password"]:focus {
+    border-width: thick;
+    border-style: solid;
+    /* border-color: rgba(255, 31, 113); */
+    border-color: rgba(89, 192, 220);
+    outline: none;
+}
+
+.btn_pink {
+    display       : inline-block;
+    /* font-size     : 20pt;    */
+    margin-top: 1%;
+    margin: 2%;
+    /* margin-left: 110%; */
+    text-align    : center;
+    cursor        : pointer;     /* カーソル   */
+    padding       : 10px 10px;
+    background    : rgb(255, 255, 255);
+    /* color         : rgba(255, 31, 113); */
+    color: rgba(89, 192, 220);
+    width: 10%;
+    transition: 0.3s;
+    border-width: thick;
+    border-style: solid;
+    /* border-color: rgba(255, 31, 113); */
+    border-color: rgba(89, 192, 220);
+  }
+
+
+.btn_pink:hover {
+color         : rgba(255, 255, 255);
+/* background    : rgba(255, 31, 113);  */
+background    : rgba(89, 192, 220); 
+}
+
+
+.right_side{
+    margin-left: 0;
+}
+
+
