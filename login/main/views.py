@@ -44,6 +44,7 @@ def login():
             if request.form["password"] == passwords[names.index(request.form["username"])]:
                 session["logged_in"] = True # logged_inにTrueを代入
                 session["username"] = request.form["username"]
+                session["user_id"] = user_ids[names.index(request.form["username"])]
                 return redirect(url_for("show_entries"))
             else:
                 flash("パスワードが異なります")
@@ -57,14 +58,14 @@ def login():
 #タスク用
 @app.route("/task.html")
 def show_entries_task():
-    if (not session.get("logged_in")) or  (not session.get("username")): # ログインしてない場合ログイン画面に誘導
+    if (not session.get("logged_in")) or  (not session.get("username")) or  (not session.get("user_id")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
     return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"])
 
 #グラフ用
 @app.route("/graph.html")
 def show_entries_graph():
-    if (not session.get("logged_in")) or  (not session.get("username")): # ログインしてない場合ログイン画面に誘導
+    if (not session.get("logged_in")) or  (not session.get("username"))or  (not session.get("user_id")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
     else:
         conn = sqlite3.connect("test.db")
@@ -77,20 +78,22 @@ def show_entries_graph():
         conn.close()
 
         user_ids = df['user_id'].values.tolist()
-        names = df['name'].values.tolist()
-        passwords = df['password'].values.tolist()
+        date = df['date'].values.tolist()
         point_m = df['point_m'].values.tolist()
         point_d = df['point_d'].values.tolist()
         point_n = df['point_n'].values.tolist()
+        print(user_ids)
 
-
-        today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
+        if not(session.get("user_id") in user_ids):
+            today_data = [0,0,0]
+        else:
+            today_data=[point_m[user_ids.index(session.get("user_id"))], point_d[user_ids.index(session.get("user_id"))], point_n[user_ids.index(session.get("user_id"))]]
     return render_template("entries/graph.html",now_time=dt_now.strftime('%Y/%m/%d'),today_data=today_data)
 
 #ユーザー画面用
 @app.route("/user.html")
 def show_entries_user():
-    if (not session.get("logged_in")) or  (not session.get("username")): # ログインしてない場合ログイン画面に誘導
+    if (not session.get("logged_in")) or  (not session.get("username"))or  (not session.get("user_id")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
     return render_template("entries/user.html",user_name=session["username"])
 
@@ -140,6 +143,7 @@ def signin():
                 conn.close()
                 session["logged_in"] = True # logged_inにTrueを代入
                 session["username"] = newusername
+                session["user_id"] = user_ids
                 return redirect(url_for("show_entries"))
     #users = session_1.query(User).all()
     return render_template("signin.html")
