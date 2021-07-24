@@ -49,8 +49,7 @@ def login():
                 flash("パスワードが異なります")
         else:
             flash("ユーザ名が異なります")
-        
-            
+
 
     return render_template("login.html")
 
@@ -74,7 +73,7 @@ def show_entries_graph():
 def show_entries_user():
     if (not session.get("logged_in")) or (not session.get("userid")) or (not session.get("username")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
-    return render_template("entries/user.html",user_id=session["userid"],user_name=session["username"])
+    return render_template("entries/user.html",user_name=session["username"])
 
 # ログアウト画面での挙動
 @app.route("/logout")

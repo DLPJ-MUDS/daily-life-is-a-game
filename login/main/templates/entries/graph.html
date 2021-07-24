@@ -3,8 +3,72 @@
 {% block title %}
 <title>Graph | daily life is a game</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js" integrity="sha512-5vwN8yor2fFT9pgPS9p9R7AszYaNn0LkQElTXIsZFCL7ucT8zDCAqlQXDdaqgA1mZP47hdvztBMsIoFxq/FyyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href = "static/style/circle.css" rel = "stylesheet" type = "text/css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js"></script>
+<link href = "https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css" rel = "stylesheet" type = "text/css">
 {% endblock %}
 {% block body %}
+  <div class="container">
     <h2>{{ now_time }}</h2>
-    <p>朝{{ today_data[0] }},昼{{ today_data[1] }},夜{{ today_data[2] }}</p>
+    <br>
+    <div id="graph_wrapper">
+      <div style="display: flex;justify-content:space-between">
+        <span style="display: inline-block;"><strong>Morning</strong></span>
+        <div style="display: inline-block;">
+          <div id ="graph-div-1"class="c100 green">
+            <span>{{ today_data[0] }}%</span>
+            <div class="slice">
+                <div class="bar"></div>
+                <div class="fill"></div>
+            </div>
+          </div>
+        </div>
+        <span style="display: inline-block;"><strong>Working</strong></span>
+        <div style="display: inline-block;">
+          <div id ="graph-div-2"class="c100 green">
+            <span>{{ today_data[1] }}%</span>
+            <div class="slice">
+                <div class="bar"></div>
+                <div class="fill"></div>
+            </div>
+          </div>
+        </div>
+        <span style="display: inline-block;"><strong>Night</strong></span>
+        <div style="display: inline-block;">
+          <div id ="graph-div-3" class="c100 green">
+            <span>{{ today_data[2] }}%</span>
+            <div class="slice">
+                <div class="bar"></div>
+                <div class="fill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr style="height: 1px; background-color: black;width: 95%;">
+
+    <div style="width: 90%;margin-left: 5%;"><div id='calendar'></div></div>
+  </div>
+
+    <script  defer>
+      let gg1 = {{ today_data |tojson }};
+      const firstscript = ()=>{
+        document.getElementById("graph-div-1").classList.add("p"+ gg1[0]);
+        document.getElementById("graph-div-2").classList.add("p"+ gg1[1] );
+        document.getElementById("graph-div-3").classList.add("p"+ gg1[2] );
+      }
+      window.onload = firstscript;
+    </script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
+    </script>
 {% endblock %}
