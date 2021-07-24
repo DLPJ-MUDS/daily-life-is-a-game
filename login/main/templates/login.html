@@ -24,8 +24,7 @@
             <button type="submit" class="btn_pink">Login</button>
         </form>
 
-        <form action="{{ url_for('signin') }}" method=get>
-            <button type="submit" class="btn_pink">Sign in</button>
-        </form>
+            <span>アカウント登録がまだの方は<a href="{{ url_for('signin') }}">こちら</a></span>
+
     </div>
 {% endblock %}

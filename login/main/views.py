@@ -8,7 +8,7 @@ import sqlite3
 import pandas as pd
 
 
-
+dt_now = datetime.datetime.now()
 
 
 
@@ -18,9 +18,9 @@ session_1 = sessionmaker(bind=engine)()
 # メイン画面での挙動
 @app.route("/")
 def show_entries():
-    if (not session.get("logged_in")) or (not session.get("userid")) or (not session.get("username")): # ログインしてない場合ログイン画面に誘導
+    if (not session.get("logged_in")) or (not session.get("username")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
-    return render_template("entries/user.html",user_name=session["username"],user_id=session["userid"])
+    return render_template("entries/user.html",user_name=session["username"])
 
 # ログイン画面での挙動
 @app.route("/login", methods=["GET", "POST"])
@@ -40,19 +40,16 @@ def login():
         user_ids = df['user_id'].values.tolist()
         names = df['name'].values.tolist()
         passwords = df['password'].values.tolist()
-        dt_now = datetime.datetime.now()
         if request.form["username"] in names:
             if request.form["password"] == passwords[names.index(request.form["username"])]:
                 session["logged_in"] = True # logged_inにTrueを代入
                 session["username"] = request.form["username"]
-                session["userid"] = "dokoka kara mottekuru"
                 return redirect(url_for("show_entries"))
             else:
                 flash("パスワードが異なります")
         else:
             flash("ユーザ名が異なります")
-        
-            
+
 
     return render_template("login.html")
 
@@ -60,14 +57,14 @@ def login():
 #タスク用
 @app.route("/task.html")
 def show_entries_task():
-    if (not session.get("logged_in")) or (not session.get("userid")) or (not session.get("username")): # ログインしてない場合ログイン画面に誘導
+    if (not session.get("logged_in")) or  (not session.get("username")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
     return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"])
 
 #グラフ用
 @app.route("/graph.html")
 def show_entries_graph():
-    if (not session.get("logged_in")) or (not session.get("userid")) or (not session.get("username")): # ログインしてない場合ログイン画面に誘導
+    if (not session.get("logged_in")) or  (not session.get("username")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
     else:
         conn = sqlite3.connect("test.db")
@@ -93,9 +90,9 @@ def show_entries_graph():
 #ユーザー画面用
 @app.route("/user.html")
 def show_entries_user():
-    if (not session.get("logged_in")) or (not session.get("userid")) or (not session.get("username")): # ログインしてない場合ログイン画面に誘導
+    if (not session.get("logged_in")) or  (not session.get("username")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
-    return render_template("entries/user.html",user_id=session["userid"],user_name=session["username"])
+    return render_template("entries/user.html",user_name=session["username"])
 
 # ログアウト画面での挙動
 @app.route("/logout")
@@ -115,6 +112,16 @@ def signin():
             if request.form["newpassword"] == "":
                 flash("新しいパスワードを入力してください")
             else:
+                conn = sqlite3.connect("test.db")
+                cur = conn.cursor()
+
+                # dbをpandasで読み出す。
+                df = pd.read_sql('SELECT * FROM users', conn)
+
+                cur.close()
+                conn.close()
+
+                user_ids = df['user_id'].values.tolist()
                 new_user_id = max(user_ids)+1
                 newusername = request.form["newusername"]
                 newpassword = request.form["newpassword"]
@@ -131,8 +138,9 @@ def signin():
                 cur.close()
                 conn.commit()
                 conn.close()
-                return render_template("login.html")
-        
+                session["logged_in"] = True # logged_inにTrueを代入
+                session["username"] = newusername
+                return redirect(url_for("show_entries"))
     #users = session_1.query(User).all()
     return render_template("signin.html")
 

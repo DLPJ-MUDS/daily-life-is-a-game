@@ -6,12 +6,18 @@
 {% block body %}
     <div class="elem_3">
         <dl class="login">
-            <dt>USER NAME</dt>
-            <dd>{{ user_name }}</dd>
-            <dt>USER ID</dt>
-            <dd>{{ user_id }}</dd>
+            <dt>User name</dt>
+            <dd><span id="line">{{ user_name }}</span></dd>
+            <!--<dt>User ID</dt>
+            <dd>{{ user_id }}</dd>-->
+
+
         </dl>
     </div>
-    <a href="{{ url_for('logout') }}">logout</a>
+    <div class="login_form">
+        <form action="{{ url_for('logout') }}" method=get>
+            <button type="submit" class="btn_pink_2">Logout</button>
+        </form>
+    </div>
     <br>
 {% endblock %}
