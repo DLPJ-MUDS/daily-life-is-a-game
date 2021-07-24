@@ -1,0 +1,27 @@
+<!-- 共通部分の設定 -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}{% endblock %}
+</head>
+<body>
+    <div>
+        <a href="{{ url_for('show_entries') }}">main page</a>
+        {% if not session.logged_in %} <!-- ログインしてない場合 -->
+        / <a href="{{ url_for('login') }}">login</a>
+        {% else %} <!-- ログインしている場合 -->
+        / <a href="{{ url_for('logout') }}">logout</a>
+        {% endif %}
+        {% for message in get_flashed_messages() %}
+        <div>
+            {{ message }} <!-- flashの内容を表示 -->
+        </div>
+        {% endfor %}
+    </div>
+   {% block body %}
+   {% endblock %}
+</body>
+</html>
