@@ -1,0 +1,65 @@
+body{
+    padding-top: 100px;
+}
+
+/* タスク */
+.elem{
+    margin-top: 5%;
+}
+
+.elme p {
+    margin: 0; 
+    padding: 0;
+}
+
+/* 付箋 */
+.elem_1{
+    margin-top: 5%;
+
+    padding: 1em 1em;
+    margin: 2em 0;
+    background: rgb(227, 244, 249);
+    border-left: solid 60px rgb(89, 192, 220);
+    box-shadow: 6px 6px #78a0b7;
+}
+
+/* 付箋 */
+.elem_2{
+    max-width: 25%;
+    margin-top: 5%;
+    padding: 1em 1em;
+    margin: 2em 0;
+    background: rgb(227, 244, 249);
+    border-left: solid 60px rgb(89, 192, 220);
+    box-shadow: 6px 6px #78a0b7;
+}
+
+
+h1{
+    color: rgb(89, 192, 220);
+    text-align: center;
+}
+
+h2{
+
+}
+
+p{
+
+}
+
+a{
+    color:rgb(54,145,169);
+}
+
+
+
+
+/* タスクアイコンのサイズ調整 */
+.icon_s img{
+    max-width: 40%;
+    min-width: 80px;
+    /* text-align:center;  */
+}
+
+

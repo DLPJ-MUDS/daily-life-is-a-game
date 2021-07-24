@@ -2,37 +2,242 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <title>タスク</title>
+    <title>DLG</title>
     <meta name="description" content="ディスクリプションを入力">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+        <script src="main.js"></script>
+        <link href = "../style/style.css" rel = "stylesheet" type = "text/css">
+        <link rel="icon" type="image/png" href="./img/favicon.png">
+
+        
+
+        <!-- Bootstrap CSS 5.0 -->
+        <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>-->
+  
+  
   </head>
   <body>
-    <!----- header----->
-    <header>ヘッダー</header>
-    <nav>ナビ</nav>
-    <!----- /header ----->
+    <!-- header-->
+    <!--<header>ヘッダー</header>-->
 
-    <!----- main ----->
-    <article>
-    <h1>タイトル</h1>
-    <section>
-    <h2>見出し２</h2>
-    <p>コンテンツの内容</p>
-    <a href="./graph.html">リンク</a>
-    </section>
-    </article>
-    <!----- /main ----->
+    <header> へっだあああああああああああああああああああああああああああああああー </header>
 
-    <!----- footer ----->
-    <footer>
+    
+    
+    <!-- ナビ -->
+    <body data-spy="scroll" data-target="#navbar">
+        <!--<nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-bottom">-->
+        <!--<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">-->
+        <nav class="navbar navbar-expand-sm navbar-dark bg-info fixed-top">
+
+            <a class="navbar-brand" href="#">
+                DLG
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#profile">Task</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#News">graph</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#News">Login</a>
+                    </li>
+
+                    </li>
+                </ul>
+            </div>
+        </nav>
+      <!-- /ナビ -->
+
+    <!-- /header -->
+
+
+
+        <div class="container">
+          <main>
+
+          <!-- サイドバーつくるならこれ-->
+          <div class="row">
+
+            <!--<div class="col-1">
+              <div class="sidebar_content">
+                流れてもいいコンテンツ
+              </div>
+
+              <div class="sidebar_fixed">
+                固定するコンテンツ
+              </div>
+            </div>-->
+
+
+
+
+            <div class="col">
+              <div class="elem" >
+              <h1>LOGO</h1>
+
+              <div class="elem_2">
+                <h2>Morning</h2>
+              </div>
+
+              <!-- タスク -->
+              <div class="row elem_1">
+              
+                <div class="col-4 icon_s">
+                  <img src="../img/test.png" alt="task icon">
+                </div>
+
+                <div class="col-8">
+                  <form action="{{ url_for('task_done') }}" method="post">
+                    <input type="text" onClick="this.form.submit();" name="task" value="タスク内容識別" readonly style="display: none;">
+                    <span>ココにタスク名</span>
+                  </form>              
+                    <p>task</p>
+                    <a href="./graph.html">リンク</a>
+                </div>
+
+                <!--<div class="col-2">
+                  <p>point</p>
+                </div>-->
+              </div>
+              <!-- /タスク -->
+
+
+ <!-- タスク -->
+<div class="row">
+    <div class="col-4">
+    あああああ
+    </div>
+
+    <div class="col-6">
+        taskaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa    
+    </div>
+</div>
+  <!-- /タスク -->
+
+
+
+              <!-- タスク -->
+              <div class="row elem_1">
+                <div class="col-4 icon_s">
+                  <img src="../img/test.png" alt="task icon">
+                </div>
+
+                <div class="col-6">
+                  <form action="{{ url_for('task_done') }}" method="post">
+                    <input type="text" onClick="this.form.submit();" name="task" value="タスク内容識別" readonly style="display: none;">
+                    <span>ココにタスク名</span>
+                  </form>              
+                    <p>taskaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                    <a href="./graph.html">リンク</a>
+                </div>
+
+                <!--<div class="col-2">
+                  <p>point</p>
+                </div>-->
+              </div>
+              <!-- /タスク -->
+
+
+              <!-- タスク -->
+              <div class="row elem_1">
+                <div class="col-4 icon_s">
+                  <img src="../img/test.png" alt="task icon">
+                </div>
+
+                <div class="col-8">
+                  <form action="{{ url_for('task_done') }}" method="post">
+                    <input type="text" onClick="this.form.submit();" name="task" value="タスク内容識別" readonly style="display: none;">
+                    <span>ココにタスク名</span>
+                  </form>              
+                    <p>task</p>
+                    <a href="./graph.html">リンク</a>
+                </div>
+
+                <!--<div class="col-2">
+                  <p>point</p>
+                </div>-->
+              </div>
+              <!-- /タスク -->
+
+
+
+
+              <!-- タスク -->
+              <div class="row elem_1">
+                <div class="col-4 icon_s">
+                  <img src="../img/test.png" alt="task icon">
+                </div>
+
+                <div class="col-8">
+                  <form action="{{ url_for('task_done') }}" method="post">
+                    <input type="text" onClick="this.form.submit();" name="task" value="タスク内容識別" readonly style="display: none;">
+                    <span>ココにタスク名</span>
+                  </form>              
+                    <p>task</p>
+                    <a href="./graph.html">リンク</a>
+                </div>
+
+                <!--<div class="col-2">
+                  <p>point</p>
+                </div>-->
+              </div>
+              <!-- /タスク -->
+
+
+            <!-- main -->
+            <!--<article>
+            <h1>タイトル</h1>
+            <section>
+            <h2>見出し２</h2>
+            <p>コンテンツの内容</p>
+            <a href="./graph.html">リンク</a>
+            </section>
+            </article>-->
+            <!-- /main -->
+
+
+
+            </div>
+          </div>
+
+
+          </main>
+        </div>
+
+
+
+    <!-- footer -->
+    <!--<footer>
       <ul style="list-style-type: none;">
-        <li><a href="./task.html">タスク</a></li>
-        <li><a href="./graph.html">グラフ</a></li>
-        <li><a href="./login.html">ユーザ / ログイン</a></li>
+        <li><a href="./task.html">Task</a></li>
+        <li><a href="./graph.html">Graph</a></li>
+        <li><a href="./login.html">Login</a></li>
       </ul>
-    </footer>
-    <!----- /footer ----->
+    </footer>-->
+    <!-- /footer -->
+
   </body>
 </html>
