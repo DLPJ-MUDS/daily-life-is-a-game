@@ -28,7 +28,7 @@ body{
 
 /* 付箋 */
 .elem_2{
-    max-width: 25%;
+    max-width: 220px;
     margin-top: 5%;
     padding: 1em 1em;
     margin: 2em 0;
@@ -66,3 +66,20 @@ a{
 }
 
 
+
+
+
+
+.note {
+    background-color: #fff; /* 背景色 */
+    background-image: linear-gradient(180deg, #ccc 1px, transparent 1px); /* 罫線の色と太さ */
+    background-size: 100% 2.5em; /* 行の高さ */
+    line-height: 2.5em; /* 文字の高さ */
+    padding-bottom: 1px; /* 最終行の下にも罫線を引く */
+    margin: 5%;
+  }
+
+
+.user{
+    text-align: center;
+}
