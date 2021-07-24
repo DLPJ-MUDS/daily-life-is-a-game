@@ -1,27 +1,36 @@
 <!-- 共通部分の設定 -->
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block title %}{% endblock %}
-</head>
-<body>
-    <div>
-        <a href="{{ url_for('show_entries') }}">main page</a>
-        {% if not session.logged_in %} <!-- ログインしてない場合 -->
-        / <a href="{{ url_for('login') }}">login</a>
-        {% else %} <!-- ログインしている場合 -->
-        / <a href="{{ url_for('logout') }}">logout</a>
-        {% endif %}
-        {% for message in get_flashed_messages() %}
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        {% block title %}{% endblock %}
+    </head>
+    <body>
         <div>
-            {{ message }} <!-- flashの内容を表示 -->
+            <h1>daily life is a game <small>～日常生活を取り戻すタスクアプリ～</small></h1>
+            {% for message in get_flashed_messages() %}
+            <div id="flash">
+                {{ message }} <!-- flashの内容を表示 -->
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-   {% block body %}
-   {% endblock %}
-</body>
+    {% block body %}
+    {% endblock %}
+    <br>
+    <footer>
+        <ul style="list-style-type: none;">
+            <li><a href="./task.html">タスク</a></li>
+            <li><a href="./graph.html">グラフ</a></li>
+            {% if not session.logged_in %} <!-- ログインしてない場合 -->
+                <li><a href="./">ログイン / ユーザー情報</a></li>
+            {% else %} <!-- ログインしている場合 -->
+                <li><a href="./">ログアウト / ユーザー情報</a></li>
+            {% endif %}
+        </ul>
+      </footer>
+    </body>
 </html>
