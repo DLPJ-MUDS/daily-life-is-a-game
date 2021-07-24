@@ -78,16 +78,24 @@ def show_entries_graph():
         conn.close()
 
         user_ids = df['user_id'].values.tolist()
-        date = df['date'].values.tolist()
-        point_m = df['point_m'].values.tolist()
-        point_d = df['point_d'].values.tolist()
-        point_n = df['point_n'].values.tolist()
-        print(user_ids)
+        # date = df['date'].values.tolist()
+        # point_m = df['point_m'].values.tolist()
+        # point_d = df['point_d'].values.tolist()
+        # point_n = df['point_n'].values.tolist()
+
 
         if not(session.get("user_id") in user_ids):
             today_data = [0,0,0]
         else:
-            today_data=[point_m[user_ids.index(session.get("user_id"))], point_d[user_ids.index(session.get("user_id"))], point_n[user_ids.index(session.get("user_id"))]]
+            user_df = df['user_id' == session.get("user_id")]
+            date = user_df['date'].values.tolist()
+            dt_now = datetime.datetime.now()
+            if not(dt_now.strftime('%Y/%m/%d') in date):
+                today_data = [0,0,0]
+            else:
+                point = user_df["date" == dt_now.strftime('%Y/%m/%d')]
+                today_data=[point['point_m'], point['point_d'], point['point_n']]
+    dt_now = datetime.datetime.now()
     return render_template("entries/graph.html",now_time=dt_now.strftime('%Y/%m/%d'),today_data=today_data)
 
 #ユーザー画面用
