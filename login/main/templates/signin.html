@@ -5,16 +5,15 @@
 {% endblock %}
 {% block body %}
     <div>
-            <p>名前: {{users[0].name}}</p>
         <form action="{{ url_for('signin') }}" method=post>
             <div>
                 <label for="InputTitle">New User Name</label>
-                <input type="text" id="InputTitle" name="username">
+                <input type="text" id="InputTitle" name="newusername">
             </div>
 
             <div>
                 <label for="InputPassword">New Password</label>
-                <input type="password" id="InputPassword" name="password">
+                <input type="password" id="InputPassword" name="newpassword">
             </div>
 
             <button type="submit">Sign In</button>
