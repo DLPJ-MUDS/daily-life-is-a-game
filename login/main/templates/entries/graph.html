@@ -7,44 +7,27 @@
 {% endblock %}
 {% block body %}
   <div class="container">
-    <h2>{{ now_time }}</h2>
     <br>
-    <div class="graph_wrapper">
-      <div style="display: flex;justify-content:space-between">
-        <span style="display: inline-block;"><strong>Morning</strong></span>
-        <div style="display: inline-block;">
-          <div id ="graph-div-1"class="c100 green">
-            <span>{{ today_data[0] }}%</span>
-            <div class="slice">
-                <div class="bar"></div>
-                <div class="fill"></div>
-            </div>
-          </div>
-        </div>
-        <span style="display: inline-block;"><strong>Working</strong></span>
-        <div style="display: inline-block;">
-          <div id ="graph-div-2"class="c100 green">
-            <span>{{ today_data[1] }}%</span>
-            <div class="slice">
-                <div class="bar"></div>
-                <div class="fill"></div>
-            </div>
-          </div>
-        </div>
-        <span style="display: inline-block;"><strong>Night</strong></span>
-        <div style="display: inline-block;">
-          <div id ="graph-div-3" class="c100 green">
-            <span>{{ today_data[2] }}%</span>
-            <div class="slice">
-                <div class="bar"></div>
-                <div class="fill"></div>
-            </div>
-          </div>
-        </div>
+    <div style="display: flex;justify-content:space-between">
+      <div>
+        <form action="./graph.html" method=post>
+            <input type="number"  name="subtra" value="-1" readonly style="display: none;">
+            <button type="submit" class="btn_pink_2">過去へ</button>
+        </form>
+      </div>
+      <div>
+        <form action="./graph.html" method=get>
+            <button type="submit" class="btn_pink_2">今日へ</button>
+        </form>
+      </div>
+      <div>
+        <form action="./graph.html" method=post>
+            <input type="number"  name="subtra" value="1" readonly style="display: none;">
+            <button type="submit" class="btn_pink_2">未来へ</button>
+        </form>
       </div>
     </div>
-    <hr style="height: 1px; background-color: black;width: 95%;">
-
+    <br>
     {% for key in da  %}
     <h2>{{ key }}</h2>
     <br>
@@ -103,14 +86,4 @@
 
     <div style="width: 90%;margin-left: 5%;"><div id='calendar'></div></div>
   </div>
-
-    <script  defer>
-      let gg1 = {{ today_data |tojson }};
-      const firstscript = ()=>{
-        document.getElementById("graph-div-1").classList.add("p"+ gg1[0]);
-        document.getElementById("graph-div-2").classList.add("p"+ gg1[1] );
-        document.getElementById("graph-div-3").classList.add("p"+ gg1[2] );
-      }
-      window.onload = firstscript;
-    </script>
 {% endblock %}
