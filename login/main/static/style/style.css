@@ -463,11 +463,18 @@ background    : rgba(191, 191, 191);
     padding-right: 5%;
 }
 
+
+.elem_2 > .now_here{
+    color: black;
+    font-size: 30px;
+    background:linear-gradient(transparent 60%, #f6c 60%);
+    text-decoration: none;
+}
 .user_btn{
     margin-top: 3%;
     margin-right: 20%;
     margin-left: 20%;
-}
+
 
 
 .p_col_b{
@@ -475,4 +482,3 @@ background    : rgba(191, 191, 191);
     margin-left: 80px;
     text-align: center;
     color: rgba(89, 192, 220);
-}
