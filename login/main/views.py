@@ -1,5 +1,12 @@
 from flask import request, redirect, url_for, render_template, flash, session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from main import app
+from models import User
+
+
+engine = create_engine('sqlite:///test.db')
+session_1 = sessionmaker(bind=engine)()
 
 # メイン画面での挙動
 @app.route("/")
@@ -13,15 +20,17 @@ def show_entries():
 def login():
     error = None
     if request.method == "POST":
-        if request.form["username"] != app.config["USERNAME"]:
-            flash("ユーザ名が異なります")
-        elif request.form["password"] != app.config["PASSWORD"]:
-            flash("パスワードが異なります")
-        # ログイン完了後メイン画面に遷移
-        else:
-            session["logged_in"] = True # logged_inにTrueを代入
-            flash("ログインしました")
-            return redirect(url_for("show_entries"))
+        users = session_1.query(User).all()
+        for user in users:
+            if request.form["username"] != user.name:
+                flash("ユーザ名が異なります")
+            elif request.form["password"] != user.password:
+                flash("パスワードが異なります")
+            # ログイン完了後メイン画面に遷移
+            else:
+                session["logged_in"] = True # logged_inにTrueを代入
+                flash("ログインしました")
+                return redirect(url_for("show_entries"))
 
     return render_template("login.html")
 
@@ -31,3 +40,9 @@ def logout():
     session.pop("logged_in", None) # logged_inを空にする
     flash("ログアウトしました")
     return redirect(url_for("show_entries"))
+
+# サインイン画面での挙動
+@app.route("/signin", methods=["GET", "POST"])
+def signin():
+    users = session_1.query(User).all()
+    return render_template("signin.html", users=users)
