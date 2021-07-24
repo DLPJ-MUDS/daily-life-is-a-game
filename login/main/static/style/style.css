@@ -384,3 +384,10 @@ background    : rgba(227, 244, 249);
 .message{
     padding-right: 5%;
 }
+
+.elem_2 > .now_here{
+    color: black;
+    font-size: 30px;
+    background:linear-gradient(transparent 60%, #f6c 60%);
+    text-decoration: none;
+}
