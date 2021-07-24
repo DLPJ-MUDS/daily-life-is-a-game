@@ -19,7 +19,7 @@
             <!-- header-->
             <!--<header>ヘッダー</header>-->
 
-            <header> <h1>daily life is a game <small>～日常生活を取り戻すタスクアプリ～</small></h1> </header>
+            <header> <h1>Daily Life is a Game <br><small>-日常生活を取り戻すタスクアプリ-</small></h1> </header>
 
             <!-- ナビ -->
             <body data-spy="scroll" data-target="#navbar">
@@ -28,7 +28,10 @@
                 <nav class="navbar navbar-expand-sm navbar-dark bg-info fixed-top">
 
                     <a class="navbar-brand" href="#">
-                        DLG
+                        <!--DLG-->
+                        <div class="logo">
+                            <img class="logo" src="static/img/logo_3.png" alt="logo">
+                        </div>
                     </a>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
@@ -37,17 +40,17 @@
 
                     <div class="collapse navbar-collapse" id="navbar">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="./task.html">Task</a>
+                            <li class="nav-item  active">
+                                <a class="nav-link" href="./task.html">TASK</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="./graph.html">Graph</a>
+                            <li class="nav-item  active">
+                                <a class="nav-link" href="./graph.html">GRAPH</a>
                             </li>
 
-                            <li class="nav-item">
+                            <li class="nav-item  active">
                                 {% if not session.logged_in %} <!-- ログインしてない場合 -->
-                                <a class="nav-link" href="./">Login</a>
+                                <a class="nav-link" href="./">LOGIN</a>
                                 {% else %} <!-- ログインしている場合 -->
                                 <a class="nav-link" href="./">MYPAGE</a>
                                 {% endif %}
@@ -62,10 +65,11 @@
             <!-- /header -->
 
             {% for message in get_flashed_messages() %}
-            <div id="flash">
+            <div class="elem_4 message" id="flash">
                 {{ message }} <!-- flashの内容を表示 -->
             </div>
             {% endfor %}
+
         </div>
     {% block body %}
     {% endblock %}

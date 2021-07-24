@@ -50,6 +50,26 @@ body{
     box-shadow: 6px 6px #78a0b7;
 }
 
+
+/* 中央寄せ付箋(user name) */
+.elem_4{
+    text-align: center;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    margin-right: 30%;
+    margin-left: 30%;
+    /* width: 400px; */
+    padding: 1em 1em;
+    background: rgb(227, 244, 249);
+    border-left: solid 60px rgb(89, 192, 220);
+    box-shadow: 6px 6px #78a0b7;
+}
+
+
+
+
+
+
 h1{
     color: rgb(89, 192, 220);
     text-align: center;
@@ -63,10 +83,27 @@ p{
     overflow-wrap: break-word;
 }
 
-a{
-    color:rgb(54,145,169);
+
+.nav-item > a:hover{
+
+    
 }
 
+
+
+.elem_4 > a{
+    /* color:rgb(54,145,169); */
+    color: black;
+    font-size: 20px;
+}
+
+
+.elem_4 > a:hover{
+    color: black;
+    font-size: 20px;
+    background:linear-gradient(transparent 60%, #f6c 60%);
+    text-decoration: none;
+}
 
 
 
@@ -78,6 +115,10 @@ a{
 }
 
 
+
+.logo{
+    width: 50px;
+}
 
 
 
@@ -101,7 +142,7 @@ a{
 
 .login_form{
     text-align: center;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 .login label{
@@ -235,8 +276,37 @@ background    : rgba(89, 192, 220);
 }
 
 
+
+.btn_pink_3 {
+    text-align    : center;
+    margin-top: 3%;
+    margin-bottom: 5%;
+    margin-right: 50%;
+    margin-left: 0;
+    cursor        : pointer;
+    padding       : 12px 50px;
+    background    : rgb(227, 244, 249);
+    width: 580px;
+    transition: 0.3s;
+    border-width: thick;
+    border-style: solid;
+    border-color: rgba(227, 244, 249);
+  }
+
+
+.btn_pink_3:hover {
+background    : rgba(227, 244, 249); 
+}
+
+
+
+
+
 .right_side{
     margin-left: 0;
 }
 
 
+.message{
+    padding-right: 5%;
+}
