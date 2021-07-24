@@ -69,7 +69,26 @@ def show_entries_task():
 def show_entries_graph():
     if (not session.get("logged_in")) or (not session.get("userid")) or (not session.get("username")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
-    return render_template("entries/graph.html",now_time=dt_now.strftime('%Y/%m/%d'),today_data=[50,20,30])
+    else:
+        conn = sqlite3.connect("test.db")
+        cur = conn.cursor()
+
+        # dbをpandasで読み出す。
+        df = pd.read_sql('SELECT * FROM monthly_data', conn)
+
+        cur.close()
+        conn.close()
+
+        user_ids = df['user_id'].values.tolist()
+        names = df['name'].values.tolist()
+        passwords = df['password'].values.tolist()
+        point_m = df['point_m'].values.tolist()
+        point_d = df['point_d'].values.tolist()
+        point_n = df['point_n'].values.tolist()
+
+
+        today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
+    return render_template("entries/graph.html",now_time=dt_now.strftime('%Y/%m/%d'),today_data=today_data)
 
 #ユーザー画面用
 @app.route("/user.html")
@@ -88,11 +107,12 @@ def logout():
 # サインイン画面での挙動
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
+    error = None
     if request.method == "POST":
-        if request.form["newusername"] is None:
+        if request.form["newusername"] == "":
             flash("新しいユーザネームを入力してください")
         else:
-            if request.form["newpassword"] is None:
+            if request.form["newpassword"] == "":
                 flash("新しいパスワードを入力してください")
             else:
                 new_user_id = max(user_ids)+1
