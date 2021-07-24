@@ -28,26 +28,23 @@
 <div class="row user_btn">
     <div class="col-sm">
         <div class="login_form">
-            
-                <a class="nav-link" href="./task.html"><button type="submit" class="btn_pink_4">Task</button></a>
-            
-        </div>
-    </div>
-    <div class="col-sm">
-        <div class="login_form">
-            <form action="{{ url_for('logout') }}" method=get>
-                <button type="submit" class="btn_pink_4">Graph</button>
-            </form>
+            <a class="nav-link" href="./task.html"><button type="submit" class="btn_pink_4">Task</button></a>
         </div>
     </div>
 
-<div class="col-sm">
-    <div class="login_form">
-        <form action="{{ url_for('logout') }}" method=get>
-            <button type="submit" class="btn_pink_5">Logout</button>
-        </form>
+    <div class="col-sm">
+        <div class="login_form">            
+            <a class="nav-link" href="./graph.html"><button type="submit" class="btn_pink_4">Graph</button></a>
+        </div>
     </div>
-</div>
+
+    <div class="col-sm">
+        <div class="login_form">
+            <form action="{{ url_for('logout') }}" method=get>
+                <a class="nav-link"><button type="submit" class="btn_pink_5">Logout</button></a>
+            </form>
+        </div>
+    </div>
 </div>        
     <br>
 {% endblock %}

@@ -199,6 +199,8 @@ p{
     margin-top: 3%;
 }
 
+
+
 .login label{
     /* color: rgba(255, 31, 113); */
     color: rgba(89, 192, 220);
@@ -465,4 +467,12 @@ background    : rgba(191, 191, 191);
     margin-top: 3%;
     margin-right: 20%;
     margin-left: 20%;
+}
+
+
+.p_col_b{
+    margin-top: 5%;
+    margin-left: 80px;
+    text-align: center;
+    color: rgba(89, 192, 220);
 }
