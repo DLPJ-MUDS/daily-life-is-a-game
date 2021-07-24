@@ -12,5 +12,17 @@ def graph():
     html = render_template('graph.html')
     return html
 
+#login
+@app.route('/login.html')
+def login():
+    html = render_template('login.html')
+    return html
+
+# task
+@app.route('/task.html')
+def task():
+    html = render_template('task.html')
+    return html
+
 if __name__ == "__main__":
     app.run()
