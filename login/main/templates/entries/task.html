@@ -4,6 +4,31 @@
 <title>Task | daily life is a game</title>
 {% endblock %}
 {% block body %}
-    <h2>タスク朝</h2>
-    <p>some task</p>
+  <div class="container">
+    <div class="elem_2">
+      <h2>Morning</h2>
+    </div>
+
+    <!-- タスク -->
+    <div class="row elem_1">
+
+      <div class="col-4 icon_s">
+        <img src="static/img/test.png" alt="task icon">
+      </div>
+
+      <div class="col-8">
+        <form action="{{ url_for('task_done') }}" method="post">
+          <input type="text" onClick="this.form.submit();" name="task" value="タスク内容識別" readonly style="display: none;">
+          <span>ココにタスク名</span>
+        </form>
+          <p>taskaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssaaaaaaaaaaaaaaa</p>
+          <a href="./graph.html">リンク</a>
+      </div>
+
+      <!--<div class="col-2">
+        <p>point</p>
+      </div>-->
+    </div>
+    <!-- /タスク -->
+  </div>
 {% endblock %}

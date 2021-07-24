@@ -88,3 +88,9 @@ def logout():
 def signin():
     #users = session_1.query(User).all()
     return render_template("signin.html", users=users)
+
+@app.route("/task_done", methods=["GET", "POST"])
+def task_done():
+    session.pop("logged_in", None) # logged_inを空にする
+    flash("ログアウトしました")
+    return redirect(url_for("show_entries"))
