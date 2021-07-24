@@ -4,14 +4,12 @@
 <title>Graph | daily life is a game</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js" integrity="sha512-5vwN8yor2fFT9pgPS9p9R7AszYaNn0LkQElTXIsZFCL7ucT8zDCAqlQXDdaqgA1mZP47hdvztBMsIoFxq/FyyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link href = "static/style/circle.css" rel = "stylesheet" type = "text/css">
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js"></script>
-<link href = "https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css" rel = "stylesheet" type = "text/css">
 {% endblock %}
 {% block body %}
   <div class="container">
     <h2>{{ now_time }}</h2>
     <br>
-    <div id="graph_wrapper">
+    <div class="graph_wrapper">
       <div style="display: flex;justify-content:space-between">
         <span style="display: inline-block;"><strong>Morning</strong></span>
         <div style="display: inline-block;">
@@ -45,8 +43,63 @@
         </div>
       </div>
     </div>
-
     <hr style="height: 1px; background-color: black;width: 95%;">
+
+    {% for key in da  %}
+    <h2>{{ key }}</h2>
+    <br>
+    <div class="graph_wrapper">
+      <div style="display: flex;justify-content:space-between">
+        <span style="display: inline-block;"><strong>Morning</strong></span>
+        <div style="display: inline-block;">
+          <div class="for-div-1 c100 green">
+            <span>{{ da[key][0] }}%</span>
+            <div class="slice">
+                <div class="bar"></div>
+                <div class="fill"></div>
+            </div>
+          </div>
+        </div>
+        <span style="display: inline-block;"><strong>Working</strong></span>
+        <div style="display: inline-block;">
+          <div class="for-div-2 c100 green">
+            <span>{{ da[key][1] }}%</span>
+            <div class="slice">
+                <div class="bar"></div>
+                <div class="fill"></div>
+            </div>
+          </div>
+        </div>
+        <span style="display: inline-block;"><strong>Night</strong></span>
+        <div style="display: inline-block;">
+          <div class="for-div-3 c100 green">
+            <span>{{ da[key][2] }}%</span>
+            <div class="slice">
+                <div class="bar"></div>
+                <div class="fill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      ggfor = {{ da[key] |tojson }};
+      document.querySelectorAll(".for-div-1").forEach((e,index)=>{
+        if (index + 1 == document.querySelectorAll(".for-div-1").length){
+          e.classList.add("p"+ ggfor[0]);
+      }})
+      document.querySelectorAll(".for-div-2").forEach((e,index)=>{
+        if (index + 1 == document.querySelectorAll(".for-div-1").length){
+          e.classList.add("p"+ ggfor[1]);
+      }})
+      document.querySelectorAll(".for-div-3").forEach((e,index)=>{
+        if (index + 1 == document.querySelectorAll(".for-div-1").length){
+          e.classList.add("p"+ ggfor[2]);
+      }})
+    </script>
+    <hr style="height: 1px; background-color: black;width: 95%;">
+    <!-- <# キーの値とキーを元に辞書から取り出した値が表示される #> -->
+    {% endfor %}
 
     <div style="width: 90%;margin-left: 5%;"><div id='calendar'></div></div>
   </div>
@@ -59,17 +112,5 @@
         document.getElementById("graph-div-3").classList.add("p"+ gg1[2] );
       }
       window.onload = firstscript;
-    </script>
-    <script>
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          locale: 'ja',
-        });
-        calendar.render();
-      });
-
     </script>
 {% endblock %}

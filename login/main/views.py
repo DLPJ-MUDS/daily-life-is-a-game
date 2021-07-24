@@ -86,6 +86,11 @@ def show_entries_graph():
 
         if not(session.get("user_id") in user_ids):
             today_data = [0,0,0]
+            datas = {}
+            dt_now = datetime.datetime.now()
+            for i in range(7):
+                i_time = datetime.timedelta(days=i+1)
+                datas[(dt_now -i_time).strftime('%Y/%m/%d')] = [0,0,0]
         else:
             user_df = df['user_id' == session.get("user_id")]
             date = user_df['date'].values.tolist()
@@ -95,8 +100,15 @@ def show_entries_graph():
             else:
                 point = user_df["date" == dt_now.strftime('%Y/%m/%d')]
                 today_data=[point['point_m'], point['point_d'], point['point_n']]
-    dt_now = datetime.datetime.now()
-    return render_template("entries/graph.html",now_time=dt_now.strftime('%Y/%m/%d'),today_data=today_data)
+            datas = {}
+            for i in range(7):
+                i_time = datetime.timedelta(days=i+1)
+                if not((dt_now -i_time).strftime('%Y/%m/%d') in date):
+                    datas[(dt_now -i_time)] = ([0,0,0])
+                else:
+                    point = user_df["date" == (dt_now -datetime.timedelta(days=i+1)).strftime('%Y/%m/%d')]
+                    datas[(dt_now -i_time)] = ([point['point_m'], point['point_d'], point['point_n']])
+    return render_template("entries/graph.html",now_time=dt_now.strftime('%Y/%m/%d'),today_data=today_data,da=datas)
 
 #ユーザー画面用
 @app.route("/user.html")
