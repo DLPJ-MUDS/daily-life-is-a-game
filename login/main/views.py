@@ -52,7 +52,7 @@ def show_entries_task():
 def show_entries_graph():
     if (not session.get("logged_in")) or (not session.get("userid")) or (not session.get("username")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
-    return render_template("entries/graph.html",now_time=dt_now.strftime('%Y/%m/%d'))
+    return render_template("entries/graph.html",now_time=dt_now.strftime('%Y/%m/%d'),today_data=[50,20,30])
 
 #ユーザー画面用
 @app.route("/user.html")
