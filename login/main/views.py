@@ -128,16 +128,17 @@ def signin():
                 new_user_id = max(user_ids)+1
                 newusername = request.form["newusername"]
                 newpassword = request.form["newpassword"]
+                email = request.form["email"]
 
                 conn = sqlite3.connect("test.db")
                 cur = conn.cursor()
 
                 #cur.executemany("insert into users(user_id, name, password) values(int("+str(new_user_id)+"), '"+newusername+"', '"+newpassword+"');")
                 # SQLテンプレート
-                sql_insert_many = "INSERT INTO users VALUES (?, ?, ?, ?)"
+                sql_insert_many = "INSERT INTO users VALUES (?, ?, ?, ?, ?)"
 
                 # データの挿入
-                cur.execute(sql_insert_many, (int(new_user_id), int(new_user_id), str(newusername), str(newpassword)))
+                cur.execute(sql_insert_many, (int(new_user_id), int(new_user_id), str(newusername), str(newpassword), email))
                 cur.close()
                 conn.commit()
                 conn.close()
