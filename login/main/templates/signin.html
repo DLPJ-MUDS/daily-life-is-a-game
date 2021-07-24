@@ -5,9 +5,9 @@
 {% endblock %}
 {% block body %}
     <div>
-            <p>名前: {{users[0].name}}</p>
         <form action="{{ url_for('signin') }}" method=post>
             <div>
+
                 <label for="InputTitle">New user name</label>
                 <input type="text" id="InputTitle" name="username">
             </div>
@@ -15,6 +15,8 @@
             <div>
                 <label for="InputPassword">New password</label>
                 <input type="password" id="InputPassword" name="password">
+
+
             </div>
 
             <button type="submit">Sign in</button>
