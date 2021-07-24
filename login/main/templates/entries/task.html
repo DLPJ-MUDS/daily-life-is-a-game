@@ -5,9 +5,25 @@
 {% endblock %}
 {% block body %}
   <div class="container">
-    <div class="elem_2">
-      <h2 id="line">Morning</h2>
+
+<div class="row">
+    <div class="col-sm elem_2">
+      <!--<h2 id="line">Morning</h2>-->
+      <a href="{{ url_for('signin') }}">Morning</a>
     </div>
+
+    <div class="col-sm elem_2">
+      <!--<h2 id="line">Working</h2>-->
+      <a href="{{ url_for('signin') }}">Working</a>
+    </div>
+
+    <div class="col-sm elem_2 ">
+      <!--<h2 id="line">Night</h2>-->
+      <a href="{{ url_for('signin') }}">Night</a>
+    </div>
+
+</div>
+
 
     <!-- タスク -->
     {% for key in tasks  %}
@@ -44,5 +60,14 @@
       </div>
     {% endfor %}
     <!-- /タスク -->
+
+
+    <!-- タスク追加 -->
+    <div class="icon_s_add">
+      <!--<h2 id="line">Night</h2>-->
+      <a href="{{ url_for('signin') }}" ><img class="logo" src="static/img/add_icon.png" alt="logo"></a>
+    </div>
+    <!-- /タスク追加 -->
+
   </div>
 {% endblock %}
