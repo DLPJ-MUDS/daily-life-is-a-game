@@ -101,8 +101,17 @@ a{
 .login dt{
     /* color: rgba(255, 31, 113); */
     color: rgba(89, 192, 220);
-    font-size: 25px;
+    font-size: 20px;
+    margin-top: 5%;
 }
+
+.login dd{
+    /* color: rgba(255, 31, 113); */
+    color: rgba(89, 192, 220);
+    font-size: 20px;
+}
+
+
 
 .login input[type="text"] {
     /* font: 20px/24px sans-serif; */
