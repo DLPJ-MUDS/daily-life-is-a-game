@@ -10,6 +10,7 @@ body{
 .elme p {
     margin: 0; 
     padding: 0;
+    overflow-wrap: break-word;
 }
 
 /* 付箋 */
@@ -21,6 +22,8 @@ body{
     background: rgb(227, 244, 249);
     border-left: solid 60px rgb(89, 192, 220);
     box-shadow: 6px 6px #78a0b7;
+
+    overflow-wrap: break-word;
 }
 
 /* 付箋 */
@@ -45,7 +48,7 @@ h2{
 }
 
 p{
-
+    overflow-wrap: break-word;
 }
 
 a{
