@@ -10,23 +10,25 @@
     </div>
 
     <!-- タスク -->
-    <div class="row elem_1">
+    {% for task in tasks %}
+      <div class="row elem_1">
 
-      <div class="col-4 icon_s">
-        <img src="static/img/test.png" alt="task icon">
+        <div class="col-4 icon_s">
+          <img src="static/img/test.png" alt="task icon">
+        </div>      
+        <div class="col-8">
+          <form action="{{ url_for('task_done') }}" method="post">
+            <input type="text" onClick="this.form.submit();" name="task" value="タスク内容識別" readonly style="display: none;">
+            <span>{{task}}</span>
+          </form>
+        </div>
+      
+
+        <!--<div class="col-2">
+          <p>point</p>
+        </div>-->
       </div>
-
-      <div class="col-8">
-        <form action="{{ url_for('task_done') }}" method="post">
-          <input type="text" onClick="this.form.submit();" name="task" value="タスク内容識別" readonly style="display: none;">
-          <span>ココにタスク名</span>
-        </form>
-      </div>
-
-      <!--<div class="col-2">
-        <p>point</p>
-      </div>-->
-    </div>
+    {% endfor %}
     <!-- /タスク -->
   </div>
 {% endblock %}
