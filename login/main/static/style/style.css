@@ -73,6 +73,8 @@ body{
 
 
 
+
+
 h1{
     color: rgb(89, 192, 220);
     text-align: center;
@@ -104,6 +106,23 @@ p{
 .elem_2 > a:hover{
     color: black;
     font-size: 30px;
+    background:linear-gradient(transparent 60%, #f6c 60%);
+    text-decoration: none;
+}
+
+.elem_3 > a{
+    /* color:rgb(54,145,169); */
+    color: black;
+    font-size: 20px;
+    vertical-align: text-bottom;
+    margin-right: 50px;
+}
+
+
+
+.elem_3 > a:hover{
+    color: black;
+    font-size: 20px;
     background:linear-gradient(transparent 60%, #f6c 60%);
     text-decoration: none;
 }
@@ -191,14 +210,14 @@ p{
     /* color: rgba(89, 192, 220); */
     margin-right: 16%;
     margin-left: 10%;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 
 .login dd{
     /* color: rgba(255, 31, 113); */
     /* color: rgba(89, 192, 220); */
-    font-size: 20px;
+    font-size: 30px;
     margin-bottom: 5%;
     margin-right: 16%;
     margin-left: 10%;
