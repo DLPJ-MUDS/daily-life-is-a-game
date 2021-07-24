@@ -76,10 +76,13 @@ def show_entries_task():
         point_m = df['point_m'].values.tolist()
         point_d = df['point_d'].values.tolist()
         point_n = df['point_n'].values.tolist()
+        ta_tasks = {}
+        for x,y,z1,z2,z3 in zip(task_texts,task_ids,point_m,point_d,point_n):
+            ta_tasks[y] = [x,0,[z1,z2,z3]]
 
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
-    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=task_texts)
+    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks)
 
 #グラフ用
 @app.route("/graph.html")
@@ -230,7 +233,6 @@ def signin():
 
 @app.route("/task_done", methods=["GET", "POST"])
 def task_done():
-    session.pop("logged_in", None) # logged_inを空にする
-    flash("ログアウトしました")
-    return redirect(url_for("show_entries"))
-
+    task = request.form["task"]
+    print("done" + task)
+    return redirect(url_for("show_entries_task"))

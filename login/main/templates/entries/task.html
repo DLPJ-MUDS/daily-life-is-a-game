@@ -10,7 +10,7 @@
     </div>
 
     <!-- タスク -->
-    {% for task in tasks %}
+    {% for key in tasks  %}
       <div class="row elem_1">
 
         <div class="col-4 icon_s">
@@ -18,15 +18,29 @@
         </div>      
         <div class="col-8">
           <form action="{{ url_for('task_done') }}" method="post">
-            <input type="text" onClick="this.form.submit();" name="task" value="タスク内容識別" readonly style="display: none;">
-            <span>{{task}}</span>
+            <div style="display: grid;grid-template-columns: 4fr 1fr;">
+              {% if tasks[key][1] == 1 %}
+              <div>
+                <input type="text" class="tasks" name="task" value="{{ key }}" readonly style="display: none;">
+                <span>{{tasks[key][0]}}</span><br><br>
+                <button type="submit" class="nohover_btn_pink_2" style="cursor: default" disabled><strong> ☑ FIN </strong></button>
+              </div>
+              <div style="position: relative;color: rgba(255, 31, 113);">
+                <Strong>{{tasks[key][2][0]}}点</Strong><!-- 朝 0 昼 1 夜 2-->
+              </div>
+              {% else %}
+              <div>
+                <input type="text" class="tasks" name="task" value="{{ key }}" readonly style="display: none;">
+                <span>{{tasks[key][0]}}</span><br><br>
+                <button type="submit" class="btn_pink_2">task done</button>
+              </div>
+              <div style="position: relative;">
+                <Strong>{{tasks[key][2][0]}}点</Strong><!-- 朝 0 昼 1 夜 2-->
+              </div>
+              {% endif %}
+            </div>
           </form>
         </div>
-      
-
-        <!--<div class="col-2">
-          <p>point</p>
-        </div>-->
       </div>
     {% endfor %}
     <!-- /タスク -->
