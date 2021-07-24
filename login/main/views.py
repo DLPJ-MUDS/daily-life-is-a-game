@@ -108,21 +108,17 @@ def signin():
 
                 # データの挿入
                 cur.execute(sql_insert_many, (int(new_user_id), int(new_user_id), str(newusername), str(newpassword)))
-                print("でけた")
-                for a in cur.execute("select * from users"):
-	                print(a)
                 cur.close()
                 conn.commit()
-                conn.close()
-                conn = sqlite3.connect("test.db")
-                cur = conn.cursor()
-
-                
-                for a in cur.execute("select * from users"):
-	                print(a)
-                cur.close()
                 conn.close()
                 return render_template("login.html")
         
     #users = session_1.query(User).all()
     return render_template("signin.html")
+
+@app.route("/task_done", methods=["GET", "POST"])
+def task_done():
+    session.pop("logged_in", None) # logged_inを空にする
+    flash("ログアウトしました")
+    return redirect(url_for("show_entries"))
+

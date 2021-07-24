@@ -5,22 +5,27 @@
 <meta name="description" content="ログインページ">
 {% endblock %}
 {% block body %}
-    <div>
+    <div class="login_form">
         <form action="{{ url_for('login') }}" method=post>
-            <div>
+            <div class="login">
                 <label for="InputTitle">User name</label>
-                <input type="text" id="InputTitle" name="username" required>
+                <div class="right_side">
+                    <input type="text" id="InputTitle" name="username" required>
+                </div>
             </div>
 
-            <div>
+            <div class="login">
                 <label for="InputPassword">Password</label>
-                <input type="password" id="InputPassword" name="password" required>
+                <div class="right_side">
+                    <input type="password" class="right_side" id="InputPassword" name="password" required>
+                </div>
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit" class="btn_pink">Login</button>
         </form>
-        <form action="{{ url_for('signin') }}" method=get>
-            <button type="submit">Signin</button>
+
+        <form action="{{ url_for('signin') }}" method=post>
+            <button type="submit" class="btn_pink">Sign in</button>
         </form>
     </div>
 {% endblock %}
