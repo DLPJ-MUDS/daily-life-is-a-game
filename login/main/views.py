@@ -4,8 +4,22 @@ from sqlalchemy.orm import sessionmaker
 from main import app
 import datetime
 from models import User
+import sqlite3
+import pandas as pd
 
 
+
+conn = sqlite3.connect("test.db")
+cur = conn.cursor()
+
+# dbをpandasで読み出す。
+df = pd.read_sql('SELECT * FROM users', conn)
+
+cur.close()
+conn.close()
+
+names = df['name'].values.tolist()
+passwords = df['password'].values.tolist()
 dt_now = datetime.datetime.now()
 
 
@@ -24,18 +38,19 @@ def show_entries():
 def login():
     error = None
     if request.method == "POST":
-        users = session_1.query(User).all()
-        for user in users:
-            if request.form["username"] != user.name:
-                flash("ユーザ名が異なります")
-            elif request.form["password"] != user.password:
-                flash("パスワードが異なります")
-            # ログイン完了後メイン画面に遷移
-            else:
+        #users = session_1.query(User).all()
+        if request.form["username"] in names:
+            if request.form["password"] == passwords[names.index(request.form["username"])]:
                 session["logged_in"] = True # logged_inにTrueを代入
                 session["username"] = request.form["username"]
                 session["userid"] = "dokoka kara mottekuru"
                 return redirect(url_for("show_entries"))
+            else:
+                flash("パスワードが異なります")
+        else:
+            flash("ユーザ名が異なります")
+        
+            
 
     return render_template("login.html")
 
@@ -71,5 +86,5 @@ def logout():
 # サインイン画面での挙動
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
-    users = session_1.query(User).all()
+    #users = session_1.query(User).all()
     return render_template("signin.html", users=users)
