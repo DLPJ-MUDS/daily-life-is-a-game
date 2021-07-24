@@ -10,7 +10,7 @@
     </div>
 
     <!-- タスク -->
-    {% for task in tasks %}
+    {% for task in tasks_m %}
       <div class="row elem_1">
 
         <div class="col-4 icon_s">
@@ -21,7 +21,7 @@
         <div class="col-8">
           <form action="{{ url_for('task_done') }}" method="post">
             <input type="text" onClick="this.form.submit();" name="task" value="タスク内容識別" readonly style="display: none;">
-            <span>{{task}}</span>
+            <span>{{tasks_m[0]}}</span>
           </form>
         </div>
       

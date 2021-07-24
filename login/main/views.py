@@ -75,10 +75,19 @@ def show_entries_task():
         point_m = df['point_m'].values.tolist()
         point_d = df['point_d'].values.tolist()
         point_n = df['point_n'].values.tolist()
-
+        task_m = []
+        task_d = []
+        task_n = []
+        for i in range(len(task_texts)):
+            if point_m[i] > 0:
+                task_m.append(task_texts[i])
+            elif point_d[i] > 0:
+                task_d.append(task_texts[i])
+            else:
+                task_n.append(task_texts[i])
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
-    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=task_texts)
+    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks_m=task_m)
 
 #グラフ用
 @app.route("/graph.html")
