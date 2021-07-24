@@ -9,17 +9,17 @@
 <div class="row">
     <div class="col-sm elem_2">
       <!--<h2 id="line">Morning</h2>-->
-      <a href="{{ url_for('signin') }}">Morning</a>
+      <a href="{{ url_for('show_entries_taskm') }}">Morning</a>
     </div>
 
     <div class="col-sm elem_2">
       <!--<h2 id="line">Working</h2>-->
-      <a href="{{ url_for('signin') }}">Working</a>
+      <a href="{{ url_for('show_entries_taskw') }}">Working</a>
     </div>
 
     <div class="col-sm elem_2 ">
       <!--<h2 id="line">Night</h2>-->
-      <a href="{{ url_for('signin') }}">Night</a>
+      <a href="{{ url_for('show_entries_taskn') }}">Night</a>
     </div>
 
 </div>
@@ -31,7 +31,7 @@
 
         <div class="col-4 icon_s">
           <img src="static/img/test.png" alt="task icon">
-        </div>      
+        </div>
         <div class="col-8">
           <form action="{{ url_for('task_done') }}" method="post">
             <div style="display: grid;grid-template-columns: 4fr 1fr;">

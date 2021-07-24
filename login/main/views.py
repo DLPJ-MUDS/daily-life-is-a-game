@@ -56,8 +56,8 @@ def login():
 
 
 #タスク用
-@app.route("/task.html")
-def show_entries_task():
+@app.route("/taskm.html")
+def show_entries_taskm():
     if (not session.get("logged_in")) or  (not session.get("username")) or  (not session.get("user_id")): # ログインしてない場合ログイン画面に誘導
         return redirect(url_for("login"))
     else:
@@ -78,7 +78,65 @@ def show_entries_task():
         point_n = df['point_n'].values.tolist()
         ta_tasks = {}
         for x,y,z1,z2,z3 in zip(task_texts,task_ids,point_m,point_d,point_n):
-            ta_tasks[y] = [x,0,[z1,z2,z3]]
+            if z1 != 0:
+                ta_tasks[y] = [x,0,[z1,z2,z3]]
+
+
+        #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
+    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks)
+
+@app.route("/taskw.html")
+def show_entries_taskw():
+    if (not session.get("logged_in")) or  (not session.get("username")) or  (not session.get("user_id")): # ログインしてない場合ログイン画面に誘導
+        return redirect(url_for("login"))
+    else:
+        conn = sqlite3.connect("test.db")
+        cur = conn.cursor()
+
+        # dbをpandasで読み出す。
+        df = pd.read_sql('SELECT * FROM Task_text', conn)
+
+        cur.close()
+        conn.close()
+
+        user_ids = df['user_id'].values.tolist()
+        task_texts = df['task_text'].values.tolist()
+        task_ids = df['task_id'].values.tolist()
+        point_m = df['point_m'].values.tolist()
+        point_d = df['point_d'].values.tolist()
+        point_n = df['point_n'].values.tolist()
+        ta_tasks = {}
+        for x,y,z1,z2,z3 in zip(task_texts,task_ids,point_m,point_d,point_n):
+            if z2 != 0:
+                ta_tasks[y] = [x,0,[z1,z2,z3]]
+
+        #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
+    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks)
+
+@app.route("/taskn.html")
+def show_entries_taskn():
+    if (not session.get("logged_in")) or  (not session.get("username")) or  (not session.get("user_id")): # ログインしてない場合ログイン画面に誘導
+        return redirect(url_for("login"))
+    else:
+        conn = sqlite3.connect("test.db")
+        cur = conn.cursor()
+
+        # dbをpandasで読み出す。
+        df = pd.read_sql('SELECT * FROM Task_text', conn)
+
+        cur.close()
+        conn.close()
+
+        user_ids = df['user_id'].values.tolist()
+        task_texts = df['task_text'].values.tolist()
+        task_ids = df['task_id'].values.tolist()
+        point_m = df['point_m'].values.tolist()
+        point_d = df['point_d'].values.tolist()
+        point_n = df['point_n'].values.tolist()
+        ta_tasks = {}
+        for x,y,z1,z2,z3 in zip(task_texts,task_ids,point_m,point_d,point_n):
+            if z3 != 0:
+                ta_tasks[y] = [x,0,[z1,z2,z3]]
 
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
@@ -99,7 +157,7 @@ def show_entries_graph():
 
         cur.close()
         conn.close()
-
+        df['user_id'] = df['user_id'].astype(int)
         user_ids = df['user_id'].values.tolist()
         # date = df['date'].values.tolist()
         # point_m = df['point_m'].values.tolist()
@@ -107,26 +165,28 @@ def show_entries_graph():
         # point_n = df['point_n'].values.tolist()
 
 
-
-        if not(session.get("user_id") in user_ids):
+        if not(session["user_id"] in user_ids):
             datas = {}
             dt_now = datetime.datetime.now()
-            for i in range(8):
-                i_time = datetime.timedelta(days=i+1)
+            for i in range(7):
+                i_time = datetime.timedelta(days=i)
                 datas[(dt_now -i_time).strftime('%Y/%m/%d')] = [0,0,0]
         else:
-            user_df = df['user_id' == session.get("user_id")]
+            user_df = df[df['user_id'] == session.get("user_id")]
+            print(user_ids)
             date = user_df['date'].values.tolist()
             dt_now = datetime.datetime.now()
             datas = {}
-            for i in range(8):
-                i_time = datetime.timedelta(days=i+1)
+            print(date)
+            print((dt_now).strftime('%Y/%m/%d'))
+            for i in range(7):
+                i_time = datetime.timedelta(days=i)
                 if not((dt_now -i_time).strftime('%Y/%m/%d') in date):
-                    datas[(dt_now -i_time)] = ([0,0,0])
+                    datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([0,0,0])
                 else:
-                    point = user_df["date" == (dt_now -datetime.timedelta(days=i+1)).strftime('%Y/%m/%d')]
-                    datas[(dt_now -i_time)] = ([point['point_m'], point['point_d'], point['point_n']])
-    return render_template("entries/graph.html",now_time=dt_now.strftime('%Y/%m/%d'),da=datas)
+                    point = user_df[user_df["date"] == (dt_now -datetime.timedelta(days=i)).strftime('%Y/%m/%d')]
+                    datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([str(point['point_m'].values[0]), str(point['point_d'].values[0]), str(point['point_n'].values[0])])
+    return render_template("entries/graph.html",da=datas)
 
 #グラフ用　画面遷移
 @app.route("/graph.html", methods=["POST"])
@@ -147,6 +207,7 @@ def graph_many():
 
             cur.close()
             conn.close()
+            df['user_id'] = df['user_id'].astype(int)
 
             user_ids = df['user_id'].values.tolist()
 
@@ -155,22 +216,22 @@ def graph_many():
             if not(session.get("user_id") in user_ids):
                 datas = {}
                 dt_now = datetime.datetime.now()
-                for i in range(8):
+                for i in range(7):
                     i_time = datetime.timedelta(days=i -subtra)
                     datas[(dt_now -i_time).strftime('%Y/%m/%d')] = [0,0,0]
             else:
-                user_df = df['user_id' == session.get("user_id")]
+                user_df = df[df['user_id'] == session.get("user_id")]
                 date = user_df['date'].values.tolist()
                 dt_now = datetime.datetime.now()
                 datas = {}
-                for i in range(8):
+                for i in range(7):
                     i_time = datetime.timedelta(days=i-subtra)
                     if not((dt_now -i_time).strftime('%Y/%m/%d') in date):
-                        datas[(dt_now -i_time)] = ([0,0,0])
+                        datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([0,0,0])
                     else:
-                        point = user_df["date" == (dt_now -datetime.timedelta(days=i-subtra)).strftime('%Y/%m/%d')]
-                        datas[(dt_now -i_time)] = ([point['point_m'], point['point_d'], point['point_n']])
-        return render_template("entries/graph.html",now_time=dt_now.strftime('%Y/%m/%d'),da=datas)
+                        point = user_df[user_df["date"] == (dt_now -datetime.timedelta(days=i-subtra)).strftime('%Y/%m/%d')]
+                        datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([str(point['point_m'].values[0]), str(point['point_d'].values[0]), str(point['point_n'].values[0])])
+        return render_template("entries/graph.html",da=datas)
 
 #ユーザー画面用
 @app.route("/user.html")
