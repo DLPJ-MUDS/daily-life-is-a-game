@@ -83,7 +83,7 @@ def show_entries_taskm():
 
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
-    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks)
+    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks,task_time=0)
 
 @app.route("/taskw.html")
 def show_entries_taskw():
@@ -111,7 +111,7 @@ def show_entries_taskw():
                 ta_tasks[y] = [x,0,[z1,z2,z3]]
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
-    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks)
+    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks,task_time=1)
 
 @app.route("/taskn.html")
 def show_entries_taskn():
@@ -140,7 +140,7 @@ def show_entries_taskn():
 
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
-    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks)
+    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks,task_time=2)
 
 #グラフ用
 @app.route("/graph.html")

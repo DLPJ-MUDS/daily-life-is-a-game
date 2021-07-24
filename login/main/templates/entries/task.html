@@ -4,6 +4,25 @@
 <title>Task | daily life is a game</title>
 {% endblock %}
 {% block body %}
+{% if task_time == 0 %}
+<style>
+  body{
+    background-color: rgb(161, 244, 250) !important;
+  }
+</style>
+{% elif task_time == 1 %}
+<style>
+  body{
+    background-color: rgb(111, 163, 167) !important;
+  }
+</style>
+{% elif task_time == 2 %}
+<style>
+  body{
+    background-color: rgb(68, 90, 92) !important;
+  }
+</style>
+{% endif %}
   <div class="container">
 
 <div class="row">
