@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../GitHub/daily-life-is-a-game"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "DLIG"
+	}
+}
