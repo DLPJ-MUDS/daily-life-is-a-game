@@ -2,18 +2,19 @@
 {% extends "layout.html" %}
 {% block title %}
 <title>login | daily life is a game</title>
+<meta name="description" content="ログインページ">
 {% endblock %}
 {% block body %}
     <div>
         <form action="{{ url_for('login') }}" method=post>
             <div>
-                <label for="InputTitle">User Name</label>
-                <input type="text" id="InputTitle" name="username">
+                <label for="InputTitle">User name</label>
+                <input type="text" id="InputTitle" name="username" required>
             </div>
 
             <div>
                 <label for="InputPassword">Password</label>
-                <input type="password" id="InputPassword" name="password">
+                <input type="password" id="InputPassword" name="password" required>
             </div>
 
             <button type="submit">Login</button>

@@ -1,0 +1,10 @@
+<!-- このページがログイン後のユーザーページ -->
+{% extends "layout.html" %}
+{% block title %}
+<title>Graph | daily life is a game</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js" integrity="sha512-5vwN8yor2fFT9pgPS9p9R7AszYaNn0LkQElTXIsZFCL7ucT8zDCAqlQXDdaqgA1mZP47hdvztBMsIoFxq/FyyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+{% block body %}
+    <h2>{{ now_time }}</h2>
+    <p>朝{{ today_data[0] }},昼{{ today_data[1] }},夜{{ today_data[2] }}</p>
+{% endblock %}
