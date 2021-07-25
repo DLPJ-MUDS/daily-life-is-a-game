@@ -16,26 +16,36 @@
             </div>
 
             <div class="login">
-                <label for="InputPassword">重要度 1~20</label>
+                <label>重要度 1~20</label>
 
                 <div class="right_side">
                     <input type="number" id="InputPoint" name="newpoint" min=1 max=20>
                 </div>
             </div>
 
-            <!-- これはなんですか... -->
+
+
             <div class="login">
-                <label for="InputPassword">時間帯</label>
-                <div class="right_side">
-                    <input type="radio" name="selecttime" value="m">morning
-                    <input type="radio" name="selecttime" value="d">working
-                    <input type="radio" name="selecttime" value="n">night
+                <label>時間帯</label>
+                <div class="right_side radiobox">
+                    <input id="radio1" class="radiobutton"  type="radio" name="selecttime" value="m">
+                    <label for="radio1">Morning</label>
+                    
+                    <input id="radio2" class="radiobutton"  type="radio" name="selecttime" value="d">
+                    <label for="radio2">Working</label>
+                    
+                    <input id="radio3" class="radiobutton"  type="radio" name="selecttime" value="n">
+                    <label for="radio3">Night</label>
+
                 </div>
             </div>
-            <!-- /これはなんですか... -->
+            
 
-            <button type="submit" class="btn_pink">Add</button>
+            <button type="submit" class="btn_pink_2">Add</button>
         </form>
     </div>
+
+
+
 {% endblock %}
 

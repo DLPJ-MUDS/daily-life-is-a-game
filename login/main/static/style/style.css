@@ -298,6 +298,27 @@ p{
     outline: none;
 }
 
+.login input[type="number"] {
+    /* font: 20px/24px sans-serif; */
+    /* color: rgba(255, 31, 113); */
+    color: rgba(89, 192, 220);
+    box-sizing: border-box;
+    width: 200px;
+    padding: 10px;
+    transition: 0.3s;
+    letter-spacing: 1px;  
+    border-width: thick;
+    border-style: solid;
+    border-color:  rgba(191, 191, 191);
+}
+
+.login input[type="number"]:focus {
+    border-width: thick;
+    border-style: solid;
+    /* border-color: rgba(255, 31, 113); */
+    border-color: rgba(89, 192, 220);
+    outline: none;
+}
 
 .btn_pink {
     /* display       : inline-block; */
@@ -484,3 +505,24 @@ background    : rgba(191, 191, 191);
     color:rgba(89, 192, 220);
 }
 
+
+
+
+
+
+
+.radiobutton {
+    display: none;
+  }
+
+.radiobox > label {
+    background-color: rgba(191, 191, 191);
+    color:rgb(255, 255, 255);
+    /* padding: 10px 20px; */
+    width: 200px;
+    padding: 20px;
+  }
+
+  .radiobutton:checked + label {
+    background-color: rgba(89, 192, 220);
+  }
