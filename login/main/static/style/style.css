@@ -573,9 +573,9 @@ background    : rgba(89, 192, 220);
     padding: 7px 10px;
     min-width: 120px;
     max-width: 100%;
-    color: #555;
+    color:rgb(255,255,255);
     font-size: 16px;
-    background: #e0edff;
+    background: rgb(89, 192, 220);
     border-radius: 15px;
   }
   
@@ -587,7 +587,7 @@ background    : rgba(89, 192, 220);
     left: -22px;
     margin-top: -15px;
     border: 15px solid transparent;
-    border-right: 15px solid #e0edff;
+    border-right: 15px solid rgb(89, 192, 220);
   }
   
   .balloon1-left p {
