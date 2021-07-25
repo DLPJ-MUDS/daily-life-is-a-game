@@ -143,6 +143,59 @@ def show_entries_taskn():
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
     return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks,task_time=2)
 
+# タスク追加用
+@app.route("/addtask", methods=["GET", "POST"])
+def addtask():
+    if (not session.get("logged_in")) or  (not session.get("username"))or  (not session.get("user_id")): # ログインしてない場合ログイン画面に誘導
+        return redirect(url_for("login"))
+    else:
+        if request.method == "POST":
+            if request.form["newtask"] == "":
+                flash("TASK内容を入力してください")
+            else:
+                if request.form["newpoint"] == "":
+                    flash("重要度を入力してください")
+                else:
+                    conn = sqlite3.connect("test.db")
+                    cur = conn.cursor()
+
+                    # dbをpandasで読み出す。
+                    df = pd.read_sql('SELECT * FROM Task_text', conn)
+
+                    cur.close()
+                    conn.close()
+
+                    task_ids = df['task_id'].values.tolist()
+                    new_task_id = max(task_ids)+1
+                    newtask = request.form["newtask"]
+                    newpoint_m = 0
+                    newpoint_d = 0
+                    newpoint_n = 0
+                    if request.form["selecttime"] == "m":
+                        newpoint_m = request.form["newpoint"]
+                    elif request.form["selecttime"] == "d":
+                        newpoint_d = request.form["newpoint"]
+                    else:
+                        newpoint_n = request.form["newpoint"]
+
+                    #email = request.form["email"]
+
+                    conn = sqlite3.connect("test.db")
+                    cur = conn.cursor()
+
+                    #cur.executemany("insert into users(user_id, name, password) values(int("+str(new_user_id)+"), '"+newusername+"', '"+newpassword+"');")
+                    # SQLテンプレート
+                    sql_insert_many = "INSERT INTO Task_text VALUES (?, ?, ?, ?, ?, ?, ?)"
+
+                    # データの挿入
+                    cur.execute(sql_insert_many, (int(new_task_id), session.get("user_id"), newtask, new_task_id, newpoint_m, newpoint_d, newpoint_n))
+                    cur.close()
+                    conn.commit()
+                    conn.close()
+                    return render_template("entries/addtask.html")
+        #users = session_1.query(User).all()
+    return render_template("entries/addtask.html")
+
 #グラフ用
 @app.route("/graph.html")
 def show_entries_graph():

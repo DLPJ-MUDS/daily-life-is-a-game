@@ -7,7 +7,7 @@
 {% if task_time == 0 %}
 <style>
   body{
-    background-color: rgb(161, 244, 250) !important;
+    background-color: rgb(255, 255, 255) !important;
   }
 </style>
 <script defer>
@@ -18,7 +18,7 @@
 {% elif task_time == 1 %}
 <style>
   body{
-    background-color: rgb(111, 163, 167) !important;
+    background-color: rgb(210, 250, 255) !important;
   }
 </style>
 <script defer>
@@ -29,7 +29,7 @@
 {% elif task_time == 2 %}
 <style>
   body{
-    background-color: rgb(68, 90, 92) !important;
+    background-color: rgb(90, 110, 115) !important;
   }
 </style>
 <script defer>
@@ -102,7 +102,11 @@
     <!-- タスク追加 -->
     <div class="icon_s_add">
       <!--<h2 id="line">Night</h2>-->
+<<<<<<< HEAD
+      <a href="{{ url_for('addtask') }}" ><img class="logo" src="static/img/add_icon.png" alt="logo"></a>
+=======
       <a href="{{ url_for('signin') }}" ><img class="logo" src="static/img/add_icon_2.png" alt="logo"></a>
+>>>>>>> 842216209e07170d27b82b6b9da2cfbd4673e844
     </div>
     <!-- /タスク追加 -->
 

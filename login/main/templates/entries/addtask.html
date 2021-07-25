@@ -1,0 +1,43 @@
+<!-- このページがサインインページ -->
+{% extends "layout.html" %}
+{% block title %}
+<title>addtask | daily life is a game</title>
+{% endblock %}
+{% block body %}
+    <div class="login_form">
+        <form action="{{ url_for('addtask') }}" method=post>
+            <div class="login">
+
+                <label for="InputTitle">TASK内容</label>
+
+                <div class="right_side">
+                    <input type="text" id="InputTask" name="newtask">
+                </div>
+            </div>
+
+            <div class="login">
+                <label for="InputPassword">重要度</label>
+
+                <div class="right_side">
+                    <input type="number" id="InputPoint" name="newpoint">
+                </div>
+            </div>
+
+            <!-- これはなんですか... -->
+            <div class="login">
+                <label for="InputPassword">時間帯</label>
+                <div class="right_side">
+                    <select name="selecttime">
+                        <option value="m">morning</option>
+                        <option value="d">day</option>
+                        <option value="n">night</option>
+                    </select>
+                </div>
+            </div>
+            <!-- /これはなんですか... -->
+
+            <button type="submit" class="btn_pink">Add</button>
+        </form>
+    </div>
+{% endblock %}
+
