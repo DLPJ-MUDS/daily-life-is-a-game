@@ -73,6 +73,7 @@
               {% if tasks[key][1] == 1 %}
               <div>
                 <input type="text" class="tasks" name="task" value="{{ key }}" readonly style="display: none;">
+                <input type="text" class="tasks" name="time" value="{{ task_time }}" readonly style="display: none;">
                 <span>{{tasks[key][0]}}</span><br><br>
                 <button type="submit" class="nohover_btn_pink_2" style="cursor: default" disabled><strong> ☑ FIN </strong></button>
               </div>
@@ -82,6 +83,7 @@
               {% else %}
               <div>
                 <input type="text" class="tasks" name="task" value="{{ key }}" readonly style="display: none;">
+                <input type="text" class="tasks" name="time" value="{{ task_time }}" readonly style="display: none;">
                 <span>{{tasks[key][0]}}</span><br><br>
                 <button type="submit" class="btn_pink_2">task done</button>
               </div>
