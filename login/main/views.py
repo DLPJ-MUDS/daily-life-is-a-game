@@ -47,6 +47,7 @@ def login():
                 session["logged_in"] = True # logged_inにTrueを代入
                 session["username"] = request.form["username"]
                 print(user_ids[names.index(request.form["username"])])
+                print(user_ids[names.index(request.form["username"])])
                 session["user_id"] = user_ids[names.index(request.form["username"])]
                 return redirect(url_for("show_entries"))
             else:
@@ -401,16 +402,22 @@ def task_done():
 <<<<<<< HEAD
         return redirect(url_for("show_entries_taskm"))"""
 
-    
+    conn = sqlite3.connect("test.db")
+    cur = conn.cursor()
 
+    df = pd.read_sql('SELECT * FROM daily_data', conn)
+    ids = df['id'].values.tolist()
+    new_id = max(ids)+1
+    
+    cur.close()
+    conn.close()
     
     conn = sqlite3.connect("test.db")
     cur = conn.cursor()
 
     df = pd.read_sql('SELECT * FROM Task_text', conn)
-    ids = df['id'].values.tolist()
-    new_id = max(ids)+1
 
+    
    
     point_m = df['point_m'].values.tolist()
     point_d = df['point_d'].values.tolist()
@@ -422,7 +429,7 @@ def task_done():
     get_point_n = 0
     if task_time == 0:
         get_point_m = point_m[task_id.index(int(get_task_id))]
-    if task_time == 0:
+    if task_time == 1:
         get_point_d = point_d[task_id.index(int(get_task_id))]
     else:
         get_point_n = point_n[task_id.index(int(get_task_id))]
@@ -435,14 +442,14 @@ def task_done():
     sql_insert_many = "INSERT INTO daily_data VALUES (?, ?, ?, ?, ?, ?, ?)"
 
     # データの挿入
-    print((int(new_id), session.get("user_id"), task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
-    cur.execute(sql_insert_many, (int(new_id), session.get("user_id"), task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
+    print((int(new_id), session["user_id"], get_task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
+    cur.execute(sql_insert_many, (int(new_id), session.get("user_id"), get_task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
     cur.close()
     conn.commit()
     conn.close()
     
         #print("===== task_time error ======")
-        return redirect(url_for("show_entries_taskm"))
+    return redirect(url_for("show_entries_taskm"))
 
 ### パスワードの変更
 # メールとユーザ名を入力、メールの送信
