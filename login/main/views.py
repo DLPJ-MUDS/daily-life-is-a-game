@@ -8,6 +8,7 @@ import datetime
 from models import User
 import sqlite3
 import pandas as pd
+import hashlib
 
 
 dt_now = datetime.datetime.now()
@@ -288,6 +289,7 @@ def addtask():
                     cur.close()
                     conn.commit()
                     conn.close()
+                    flash("タスクを追加しました")
                     return render_template("entries/addtask.html")
         #users = session_1.query(User).all()
     return render_template("entries/addtask.html")
@@ -335,7 +337,7 @@ def show_entries_graph():
                     datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([0,0,0])
                 else:
                     point = user_df[user_df["date"] == (dt_now -datetime.timedelta(days=i)).strftime('%Y/%m/%d')]
-                    datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([str(point['point_m'].values[0]), str(point['point_d'].values[0]), str(point['point_n'].values[0])])
+                    datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([str(int(point['point_m'].values[0])), str(int(point['point_d'].values[0])), str(int(point['point_n'].values[0]))])
     return render_template("entries/graph.html",da=datas)
 
 #グラフ用　画面遷移
@@ -380,7 +382,7 @@ def graph_many():
                         datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([0,0,0])
                     else:
                         point = user_df[user_df["date"] == (dt_now -datetime.timedelta(days=i-subtra)).strftime('%Y/%m/%d')]
-                        datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([str(point['point_m'].values[0]), str(point['point_d'].values[0]), str(point['point_n'].values[0])])
+                        datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([str(int(point['point_m'].values[0])), str(int(point['point_d'].values[0])), str(int(point['point_n'].values[0]))])
         return render_template("entries/graph.html",da=datas)
 
 #ユーザー画面用
@@ -422,16 +424,17 @@ def signin():
                 newusername = request.form["newusername"]
                 newpassword = request.form["newpassword"]
                 email = request.form["email"]
+                hash_name = hashlib.md5(newusername.encode()).hexdigest()
 
                 conn = sqlite3.connect("test.db")
                 cur = conn.cursor()
 
                 #cur.executemany("insert into users(user_id, name, password) values(int("+str(new_user_id)+"), '"+newusername+"', '"+newpassword+"');")
                 # SQLテンプレート
-                sql_insert_many = "INSERT INTO users VALUES (?, ?, ?, ?, ?)"
+                sql_insert_many = "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)"
 
                 # データの挿入
-                cur.execute(sql_insert_many, (int(new_user_id), int(new_user_id), str(newusername), str(newpassword), email))
+                cur.execute(sql_insert_many, (int(new_user_id), int(new_user_id), str(newusername), str(newpassword), email, str(hash_name)))
                 cur.close()
                 conn.commit()
                 conn.close()
@@ -471,6 +474,20 @@ def task_done():
     point_d = df['point_d'].values.tolist()
     point_n = df['point_n'].values.tolist()
     task_id = df['task_id'].values.tolist()
+    task_user_id = df['user_id'].values.tolist()
+
+    full_point_m = 0
+    full_point_d = 0
+    full_point_n = 0
+    for i in range(len(task_id)):
+        if task_user_id[i] == 0 or task_user_id[i] == session["user_id"]:
+            full_point_m += point_m[i]
+            full_point_d += point_d[i]
+            full_point_n += point_n[i]
+
+
+
+
     #print(get_task_id)
     get_point_m = 0
     get_point_d = 0
@@ -482,19 +499,86 @@ def task_done():
     else:
         get_point_n = point_n[task_id.index(int(get_task_id))]
 
+    
+    
+
+
     dt_now = datetime.datetime.now()
     dt_now = dt_now.strftime('%Y/%m/%d')
+    print(dt_now)
 
     #cur.executemany("insert into users(user_id, name, password) values(int("+str(new_user_id)+"), '"+newusername+"', '"+newpassword+"');")
     # SQLテンプレート
     sql_insert_many = "INSERT INTO daily_data VALUES (?, ?, ?, ?, ?, ?, ?)"
 
     # データの挿入
-    print((int(new_id), session["user_id"], get_task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
+    #print((int(new_id), session["user_id"], get_task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
     cur.execute(sql_insert_many, (int(new_id), session.get("user_id"), get_task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
+    
+    df = pd.read_sql('SELECT * FROM daily_data', conn)
+
+    point_m = df['point_m'].values.tolist()
+    point_d = df['point_d'].values.tolist()
+    point_n = df['point_n'].values.tolist()
+    task_user_id = df['user_id'].values.tolist()
+
+    have_point_m = 0
+    have_point_d = 0
+    have_point_n = 0
+    for i in range(len(point_m)):
+        if task_user_id[i] == 0 or task_user_id[i] == session["user_id"]:
+            have_point_m += point_m[i]
+            have_point_d += point_d[i]
+            have_point_n += point_n[i]
+
+
+    
+    
     cur.close()
     conn.commit()
     conn.close()
+
+    conn = sqlite3.connect("test.db")
+    cur = conn.cursor()
+
+    df = pd.read_sql('SELECT * FROM monthly_data', conn)
+    ids = df['id'].values.tolist()
+    user_id = df['user_id'].values.tolist()
+    date = df['date'].values.tolist()
+    new_id = max(ids)+1
+    
+    cur.close()
+    conn.close()
+
+    conn = sqlite3.connect("test.db")
+    cur = conn.cursor()
+
+    point_per_m = have_point_m / full_point_m * 100
+    point_per_d = have_point_d / full_point_d * 100
+    point_per_n = have_point_n / full_point_n * 100
+
+    #cur.executemany("insert into users(user_id, name, password) values(int("+str(new_user_id)+"), '"+newusername+"', '"+newpassword+"');")
+    # SQLテンプレート
+    sql_insert_many = "INSERT INTO monthly_data VALUES (?, ?, ?, ?, ?, ?)"
+
+    # データの挿入
+    jadge = 0
+    
+
+    for i in range(len(ids)):
+        if user_id[i] == session["user_id"] and date[i] == dt_now:
+            jadge += 1
+            cur.execute("update monthly_data set point_m=?, point_d=?, point_n=? where id=?",(point_per_m, point_per_d, point_per_n, i+1))
+
+    if jadge == 0:
+        cur.execute(sql_insert_many, (int(new_id), session.get("user_id"), point_per_m, point_per_d, point_per_n, str(dt_now)))
+    
+    cur.close()
+    conn.commit()
+    conn.close()
+
+
+
 
     if task_time == 0:
         return redirect(url_for("show_entries_taskm"))
@@ -512,9 +596,29 @@ def task_done():
 def enteremail():
     if request.method == "POST":
         session["reset_username"] = str(request.form["reset_username"])
+        hash_name = hashlib.md5(session["reset_username"].encode()).hexdigest()
         session["email"] = str(request.form["email"])
         to_mail(session["reset_username"], session["email"])
 
+        conn = sqlite3.connect("test.db")
+        cur = conn.cursor()
+        # dbをpandasで読み出す。
+        df = pd.read_sql("SELECT hash_name, email FROM users WHERE hash_name='{}'".format(hash_name), conn)
+        cur.close()
+        conn.close()
+
+        db_hash_name = df.values.tolist()[0][0]
+        db_email = df.values.tolist()[0][1]
+
+        if (hash_name==db_hash_name) and (session["email"]==db_email):
+            to_mail(session["reset_username"], session["email"])
+            return redirect(url_for("confirm"))
+        # elif (hash_name!=db_hash_name) and (session["email"]==db_email):
+        #     flash("登録されているユーザ名が一致しません")
+        # elif (hash_name==db_hash_name) and (session["email"]!=db_email):
+        #     flash("登録されているメールアドレスが一致しません")
+        else:
+            flash("登録されているユーザ名とメールアドレスが一致しません")
         return redirect(url_for("confirm"))
     return render_template("enteremail.html")
 
@@ -534,7 +638,7 @@ def passwordchange():
 
             conn = sqlite3.connect("test.db")
             cur = conn.cursor()
-            sql_update = "UPDATE users SET password=? WHERE name=?"
+            sql_update = "UPDATE users SET password=? WHERE hash_name=?"
             cur.execute(sql_update, (pword, reset_username))
             cur.close()
             conn.commit()
