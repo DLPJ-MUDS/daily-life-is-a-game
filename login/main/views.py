@@ -108,9 +108,8 @@ def show_entries_taskm():
                     else:
                         if y in task_id2:
                             df3 = df2[df2['user_id'] == session.get("user_id")]
-                            print(df3)
                             done_done = df3[df3["date"] == dt_now.strftime('%Y/%m/%d')]
-                            if done_done['task_id'].values[0] == y:
+                            if int(y) in done_done['task_id'].values.tolist():
                                 ta_tasks[y] = [x,1,[z1,z2,z3]]
                             else:
                                 ta_tasks[y] = [x,0,[z1,z2,z3]]
@@ -135,6 +134,25 @@ def show_entries_taskw():
         cur.close()
         conn.close()
 
+        # doneタスク読み込み
+        conn = sqlite3.connect("test.db")
+        cur = conn.cursor()
+        # dbをpandasで読み出す。
+        df2 = pd.read_sql('SELECT * FROM daily_data', conn)
+        cur.close()
+        conn.close()
+        user_ids2 = df2['user_id'].values.tolist()
+        date2 = df2['date'].values.tolist()
+        task_id2 = df2['task_id'].values.tolist()
+        done_log = True
+        if not(int(session["user_id"]) in user_ids2):
+            done_log = False
+        else:
+            dt_now = datetime.datetime.now()
+            if not(dt_now.strftime('%Y/%m/%d') in date2):
+                done_log = False
+
+
         user_ids = df['user_id'].values.tolist()
         task_texts = df['task_text'].values.tolist()
         task_ids = df['task_id'].values.tolist()
@@ -145,7 +163,18 @@ def show_entries_taskw():
         for x,y,z1,z2,z3,p in zip(task_texts,task_ids,point_m,point_d,point_n,user_ids):
             if int(p) == 0 or int(p) == int(session["user_id"]):
                 if z2 != 0:
-                    ta_tasks[y] = [x,0,[z1,z2,z3]]
+                    if not(done_log):
+                        ta_tasks[y] = [x,0,[z1,z2,z3]]
+                    else:
+                        if y in task_id2:
+                            df3 = df2[df2['user_id'] == session.get("user_id")]
+                            done_done = df3[df3["date"] == dt_now.strftime('%Y/%m/%d')]
+                            if int(y) in done_done['task_id'].values.tolist():
+                                ta_tasks[y] = [x,1,[z1,z2,z3]]
+                            else:
+                                ta_tasks[y] = [x,0,[z1,z2,z3]]
+                        else:
+                            ta_tasks[y] = [x,0,[z1,z2,z3]]
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
     return render_template("entries/task.html",user_id=session["user_id"],user_name=session["username"], tasks=ta_tasks,task_time=1)
@@ -164,6 +193,25 @@ def show_entries_taskn():
         cur.close()
         conn.close()
 
+        # doneタスク読み込み
+        conn = sqlite3.connect("test.db")
+        cur = conn.cursor()
+        # dbをpandasで読み出す。
+        df2 = pd.read_sql('SELECT * FROM daily_data', conn)
+        cur.close()
+        conn.close()
+        user_ids2 = df2['user_id'].values.tolist()
+        date2 = df2['date'].values.tolist()
+        task_id2 = df2['task_id'].values.tolist()
+        done_log = True
+        if not(int(session["user_id"]) in user_ids2):
+            done_log = False
+        else:
+            dt_now = datetime.datetime.now()
+            if not(dt_now.strftime('%Y/%m/%d') in date2):
+                done_log = False
+
+
         user_ids = df['user_id'].values.tolist()
         task_texts = df['task_text'].values.tolist()
         task_ids = df['task_id'].values.tolist()
@@ -174,7 +222,18 @@ def show_entries_taskn():
         for x,y,z1,z2,z3,p in zip(task_texts,task_ids,point_m,point_d,point_n,user_ids):
             if int(p) == 0 or int(p) == int(session["user_id"]):
                 if z3 != 0:
-                    ta_tasks[y] = [x,0,[z1,z2,z3]]
+                    if not(done_log):
+                        ta_tasks[y] = [x,0,[z1,z2,z3]]
+                    else:
+                        if y in task_id2:
+                            df3 = df2[df2['user_id'] == session.get("user_id")]
+                            done_done = df3[df3["date"] == dt_now.strftime('%Y/%m/%d')]
+                            if int(y) in done_done['task_id'].values.tolist():
+                                ta_tasks[y] = [x,1,[z1,z2,z3]]
+                            else:
+                                ta_tasks[y] = [x,0,[z1,z2,z3]]
+                        else:
+                            ta_tasks[y] = [x,0,[z1,z2,z3]]
 
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
@@ -391,16 +450,7 @@ def task_done():
     task_time = int(request.form["time"])
     print(task_time)
     #print("done" + task)
-    
-    """if task_time == 0:
-        return redirect(url_for("show_entries_taskm"))
-    elif task_time == 1:
-        return redirect(url_for("show_entries_taskw"))
-    elif task_time == 2:
-        return redirect(url_for("show_entries_taskn"))
-    else:
-<<<<<<< HEAD
-        return redirect(url_for("show_entries_taskm"))"""
+
 
     conn = sqlite3.connect("test.db")
     cur = conn.cursor()
@@ -435,7 +485,7 @@ def task_done():
         get_point_n = point_n[task_id.index(int(get_task_id))]
 
     dt_now = datetime.datetime.now()
-    dt_now.strftime('%Y/%m/%d')
+    dt_now = dt_now.strftime('%Y/%m/%d')
 
     #cur.executemany("insert into users(user_id, name, password) values(int("+str(new_user_id)+"), '"+newusername+"', '"+newpassword+"');")
     # SQLテンプレート
@@ -447,9 +497,16 @@ def task_done():
     cur.close()
     conn.commit()
     conn.close()
-    
-        #print("===== task_time error ======")
-    return redirect(url_for("show_entries_taskm"))
+
+    if task_time == 0:
+        return redirect(url_for("show_entries_taskm"))
+    elif task_time == 1:
+        return redirect(url_for("show_entries_taskw"))
+    elif task_time == 2:
+        return redirect(url_for("show_entries_taskn"))
+    else:
+        print("===== task_time error ======")
+        return redirect(url_for("show_entries_taskm"))
 
 ### パスワードの変更
 # メールとユーザ名を入力、メールの送信
