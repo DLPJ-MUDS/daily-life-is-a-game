@@ -7,38 +7,54 @@
 {% if task_time == 0 %}
 <style>
   body{
-    background-color: rgb(161, 244, 250) !important;
+    background-color: rgb(255, 255, 255) !important;
   }
 </style>
+<script defer>
+  window.onload = function() {
+    document.getElementById("timezone_m").classList.add( "now_here" )
+  }
+</script>
 {% elif task_time == 1 %}
 <style>
   body{
-    background-color: rgb(111, 163, 167) !important;
+    background-color: rgb(210, 250, 255) !important;
   }
 </style>
+<script defer>
+  window.onload = function() {
+    document.getElementById("timezone_w").classList.add( "now_here" )
+  }
+</script>
 {% elif task_time == 2 %}
 <style>
   body{
-    background-color: rgb(68, 90, 92) !important;
+    background-color: rgb(90, 110, 115) !important;
   }
 </style>
+<script defer>
+  window.onload = function() {
+    document.getElementById("timezone_n").classList.add( "now_here" )
+  }
+</script>
 {% endif %}
+
   <div class="container">
 
 <div class="row">
     <div class="col-sm elem_2">
       <!--<h2 id="line">Morning</h2>-->
-      <a href="{{ url_for('show_entries_taskm') }}">Morning</a>
+      <a id="timezone_m" href="{{ url_for('show_entries_taskm') }}">Morning</a>
     </div>
 
     <div class="col-sm elem_2">
       <!--<h2 id="line">Working</h2>-->
-      <a href="{{ url_for('show_entries_taskw') }}">Working</a>
+      <a id="timezone_w" href="{{ url_for('show_entries_taskw') }}">Working</a>
     </div>
 
     <div class="col-sm elem_2 ">
       <!--<h2 id="line">Night</h2>-->
-      <a href="{{ url_for('show_entries_taskn') }}">Night</a>
+      <a id="timezone_n" href="{{ url_for('show_entries_taskn') }}">Night</a>
     </div>
 
 </div>
@@ -57,20 +73,22 @@
               {% if tasks[key][1] == 1 %}
               <div>
                 <input type="text" class="tasks" name="task" value="{{ key }}" readonly style="display: none;">
+                <input type="text" class="tasks" name="time" value="{{ task_time }}" readonly style="display: none;">
                 <span>{{tasks[key][0]}}</span><br><br>
                 <button type="submit" class="nohover_btn_pink_2" style="cursor: default" disabled><strong> ☑ FIN </strong></button>
               </div>
               <div style="position: relative;color: rgba(255, 31, 113);">
-                <Strong>{{tasks[key][2][0]}}点</Strong><!-- 朝 0 昼 1 夜 2-->
+                <Strong>{{tasks[key][2][task_time]}}点</Strong><!-- 朝 0 昼 1 夜 2-->
               </div>
               {% else %}
               <div>
                 <input type="text" class="tasks" name="task" value="{{ key }}" readonly style="display: none;">
+                <input type="text" class="tasks" name="time" value="{{ task_time }}" readonly style="display: none;">
                 <span>{{tasks[key][0]}}</span><br><br>
                 <button type="submit" class="btn_pink_2">task done</button>
               </div>
               <div style="position: relative;">
-                <Strong>{{tasks[key][2][0]}}点</Strong><!-- 朝 0 昼 1 夜 2-->
+                <Strong>{{tasks[key][2][task_time]}}点</Strong><!-- 朝 0 昼 1 夜 2-->
               </div>
               {% endif %}
             </div>
@@ -84,7 +102,11 @@
     <!-- タスク追加 -->
     <div class="icon_s_add">
       <!--<h2 id="line">Night</h2>-->
+<<<<<<< HEAD
       <a href="{{ url_for('addtask') }}" ><img class="logo" src="static/img/add_icon.png" alt="logo"></a>
+=======
+      <a href="{{ url_for('signin') }}" ><img class="logo" src="static/img/add_icon_2.png" alt="logo"></a>
+>>>>>>> 842216209e07170d27b82b6b9da2cfbd4673e844
     </div>
     <!-- /タスク追加 -->
 

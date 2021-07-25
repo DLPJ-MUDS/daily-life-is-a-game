@@ -349,8 +349,17 @@ def signin():
 @app.route("/task_done", methods=["GET", "POST"])
 def task_done():
     task = request.form["task"]
+    task_time = int(request.form["time"])
+    print(task_time)
     print("done" + task)
-    return redirect(url_for("show_entries_task"))
+    if task_time == 0:
+        return redirect(url_for("show_entries_taskm"))
+    elif task_time == 1:
+        return redirect(url_for("show_entries_taskw"))
+    elif task_time == 2:
+        return redirect(url_for("show_entries_taskn"))
+    else:
+        return redirect(url_for("show_entries_taskm"))
 
 ### パスワードの変更
 # メールとユーザ名を入力、メールの送信

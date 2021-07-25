@@ -73,6 +73,8 @@ body{
 
 
 
+
+
 h1{
     color: rgb(89, 192, 220);
     text-align: center;
@@ -104,6 +106,23 @@ p{
 .elem_2 > a:hover{
     color: black;
     font-size: 30px;
+    background:linear-gradient(transparent 60%, #f6c 60%);
+    text-decoration: none;
+}
+
+.elem_3 > a{
+    /* color:rgb(54,145,169); */
+    color: black;
+    font-size: 20px;
+    vertical-align: text-bottom;
+    margin-right: 50px;
+}
+
+
+
+.elem_3 > a:hover{
+    color: black;
+    font-size: 20px;
     background:linear-gradient(transparent 60%, #f6c 60%);
     text-decoration: none;
 }
@@ -180,6 +199,8 @@ p{
     margin-top: 3%;
 }
 
+
+
 .login label{
     /* color: rgba(255, 31, 113); */
     color: rgba(89, 192, 220);
@@ -191,14 +212,14 @@ p{
     /* color: rgba(89, 192, 220); */
     margin-right: 16%;
     margin-left: 10%;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 
 .login dd{
     /* color: rgba(255, 31, 113); */
     /* color: rgba(89, 192, 220); */
-    font-size: 20px;
+    font-size: 30px;
     margin-bottom: 5%;
     margin-right: 16%;
     margin-left: 10%;
@@ -247,6 +268,29 @@ p{
 }
 
 .login input[type="password"]:focus {
+    border-width: thick;
+    border-style: solid;
+    /* border-color: rgba(255, 31, 113); */
+    border-color: rgba(89, 192, 220);
+    outline: none;
+}
+
+
+.login input[type="email"] {
+    /* font: 20px/24px sans-serif; */
+    /* color: rgba(255, 31, 113); */
+    color: rgba(89, 192, 220);
+    box-sizing: border-box;
+    width: 200px;
+    padding: 10px;
+    transition: 0.3s;
+    letter-spacing: 1px;  
+    border-width: thick;
+    border-style: solid;
+    border-color:  rgba(191, 191, 191);
+}
+
+.login input[type="email"]:focus {
     border-width: thick;
     border-style: solid;
     /* border-color: rgba(255, 31, 113); */
@@ -356,6 +400,59 @@ background    : rgba(227, 244, 249);
   }
 
 
+  .btn_pink_4 {
+    /* display       : inline-block; */
+    text-align    : center;
+    /* font-size     : 20pt;    */
+    margin: 2%;
+    margin-top: 1%;
+    /* margin-left: 110%; */
+    cursor        : pointer;     /* カーソル   */
+    padding       : 12px 10px;
+    background    : rgb(255, 255, 255);
+    /* color         : rgba(255, 31, 113); */
+    color: rgba(89, 192, 220);
+    width: 100%;
+    transition: 0.3s;
+    border-width: thick;
+    border-style: solid;
+    /* border-color: rgba(255, 31, 113); */
+    border-color: rgba(89, 192, 220);
+  }
+
+
+.btn_pink_4:hover {
+color         : rgba(255, 255, 255);
+/* background    : rgba(255, 31, 113);  */
+background    : rgba(89, 192, 220); 
+}
+
+.btn_pink_5 {
+    /* display       : inline-block; */
+    text-align    : center;
+    /* font-size     : 20pt;    */
+    margin: 2%;
+    margin-top: 1%;
+    /* margin-left: 110%; */
+    cursor        : pointer;     /* カーソル   */
+    padding       : 12px 10px;
+    background    : rgb(255, 255, 255);
+    /* color         : rgba(255, 31, 113); */
+    color: rgba(191, 191, 191);
+    width: 100%;
+    transition: 0.3s;
+    border-width: thick;
+    border-style: solid;
+    /* border-color: rgba(255, 31, 113); */
+    border-color: rgba(191, 191, 191);
+  }
+
+
+.btn_pink_5:hover {
+color         : rgba(255, 255, 255);
+/* background    : rgba(255, 31, 113);  */
+background    : rgba(191, 191, 191); 
+}
 
 .right_side{
     margin-left: 0;
@@ -365,3 +462,25 @@ background    : rgba(227, 244, 249);
 .message{
     padding-right: 5%;
 }
+
+
+.elem_2 > .now_here{
+    color: black;
+    font-size: 30px;
+    background:linear-gradient(transparent 60%, #f6c 60%);
+    text-decoration: none;
+}
+.user_btn{
+    margin-top: 3%;
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+
+.p_col_b{
+    margin-top: 5%;
+    margin-left: 80px;
+    text-align: center;
+    color:rgba(89, 192, 220);
+}
+
