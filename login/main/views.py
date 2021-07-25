@@ -1,3 +1,4 @@
+from re import S
 from flask import request, redirect, url_for, render_template, flash, session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -72,6 +73,25 @@ def show_entries_taskm():
         cur.close()
         conn.close()
 
+        # doneタスク読み込み
+        conn = sqlite3.connect("test.db")
+        cur = conn.cursor()
+        # dbをpandasで読み出す。
+        df2 = pd.read_sql('SELECT * FROM daily_data', conn)
+        cur.close()
+        conn.close()
+        user_ids2 = df2['user_id'].values.tolist()
+        date2 = df2['date'].values.tolist()
+        task_id2 = df2['task_id'].values.tolist()
+        done_log = True
+        if not(int(session["user_id"]) in user_ids2):
+            done_log = False
+        else:
+            dt_now = datetime.datetime.now()
+            if not(dt_now.strftime('%Y/%m/%d') in date2):
+                done_log = False
+
+
         user_ids = df['user_id'].values.tolist()
         task_texts = df['task_text'].values.tolist()
         task_ids = df['task_id'].values.tolist()
@@ -79,11 +99,22 @@ def show_entries_taskm():
         point_d = df['point_d'].values.tolist()
         point_n = df['point_n'].values.tolist()
         ta_tasks = {}
-        print(session["user_id"])
         for x,y,z1,z2,z3,p in zip(task_texts,task_ids,point_m,point_d,point_n,user_ids):
             if int(p) == 0 or int(p) == int(session["user_id"]):
                 if z1 != 0:
-                    ta_tasks[y] = [x,0,[z1,z2,z3]]
+                    if not(done_log):
+                        ta_tasks[y] = [x,0,[z1,z2,z3]]
+                    else:
+                        if y in task_id2:
+                            df3 = df2[df2['user_id'] == session.get("user_id")]
+                            print(df3)
+                            done_done = df3[df3["date"] == dt_now.strftime('%Y/%m/%d')]
+                            if done_done['task_id'].values[0] == y:
+                                ta_tasks[y] = [x,1,[z1,z2,z3]]
+                            else:
+                                ta_tasks[y] = [x,0,[z1,z2,z3]]
+                        else:
+                            ta_tasks[y] = [x,0,[z1,z2,z3]]
 
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
