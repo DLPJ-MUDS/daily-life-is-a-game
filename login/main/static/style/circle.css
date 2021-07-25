@@ -853,7 +853,7 @@
 .c100.dark > span {
   color: #c6ff00;
 }
-.c100.green .bar, .c100.green .fill {
+/* .c100.green .bar, .c100.green .fill {
   border-color: #4db53c !important;
 }
 .c100.green > span {
@@ -864,7 +864,21 @@
 }
 .c100.green.dark > span {
   color: #5fd400;
+} */
+
+.c100.green .bar, .c100.green .fill {
+  border-color: rgba(89, 192, 220) !important;
 }
+.c100.green > span {
+  color: rgba(89, 192, 220);
+}
+.c100.green.dark .bar, .c100.green.dark .fill {
+  border-color: #rgba(89, 192, 220) !important;
+}
+.c100.green.dark > span {
+  color: rgba(89, 192, 220);
+}
+
 .c100.orange .bar, .c100.orange .fill {
   border-color: #dd9d22 !important;
 }
