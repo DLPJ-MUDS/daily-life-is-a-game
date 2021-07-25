@@ -289,6 +289,7 @@ def addtask():
                     cur.close()
                     conn.commit()
                     conn.close()
+                    flash("タスクを追加しました")
                     return render_template("entries/addtask.html")
         #users = session_1.query(User).all()
     return render_template("entries/addtask.html")
