@@ -450,8 +450,6 @@ def task_done():
     task_time = int(request.form["time"])
     print(task_time)
     #print("done" + task)
-
-
     conn = sqlite3.connect("test.db")
     cur = conn.cursor()
 
