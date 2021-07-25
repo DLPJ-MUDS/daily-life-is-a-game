@@ -354,19 +354,61 @@ def signin():
 @app.route("/task_done", methods=["GET", "POST"])
 def task_done():
     if (not session.get("logged_in")) or  (not session.get("username"))or  (not session.get("user_id")): # ログインしてない場合ログイン画面に誘導
-            return redirect(url_for("login"))
-    task = request.form["task"]
+        return redirect(url_for("login"))
+    get_task_id = request.form["task"]
     task_time = int(request.form["time"])
     print(task_time)
-    print("done" + task)
-    if task_time == 0:
+    #print("done" + task)
+    
+    """if task_time == 0:
         return redirect(url_for("show_entries_taskm"))
     elif task_time == 1:
         return redirect(url_for("show_entries_taskw"))
     elif task_time == 2:
         return redirect(url_for("show_entries_taskn"))
     else:
-        return redirect(url_for("show_entries_taskm"))
+        return redirect(url_for("show_entries_taskm"))"""
+
+    
+
+    
+    conn = sqlite3.connect("test.db")
+    cur = conn.cursor()
+
+    df = pd.read_sql('SELECT * FROM Task_text', conn)
+    ids = df['id'].values.tolist()
+    new_id = max(ids)+1
+
+   
+    point_m = df['point_m'].values.tolist()
+    point_d = df['point_d'].values.tolist()
+    point_n = df['point_n'].values.tolist()
+    task_id = df['task_id'].values.tolist()
+    #print(get_task_id)
+    get_point_m = 0
+    get_point_d = 0
+    get_point_n = 0
+    if task_time == 0:
+        get_point_m = point_m[task_id.index(int(get_task_id))]
+    if task_time == 0:
+        get_point_d = point_d[task_id.index(int(get_task_id))]
+    else:
+        get_point_n = point_n[task_id.index(int(get_task_id))]
+
+    dt_now = datetime.datetime.now()
+    dt_now.strftime('%Y/%m/%d')
+
+    #cur.executemany("insert into users(user_id, name, password) values(int("+str(new_user_id)+"), '"+newusername+"', '"+newpassword+"');")
+    # SQLテンプレート
+    sql_insert_many = "INSERT INTO daily_data VALUES (?, ?, ?, ?, ?, ?, ?)"
+
+    # データの挿入
+    print((int(new_id), session.get("user_id"), task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
+    cur.execute(sql_insert_many, (int(new_id), session.get("user_id"), task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
+    cur.close()
+    conn.commit()
+    conn.close()
+    
 
 ### パスワードの変更
 # メールとユーザ名を入力、メールの送信
