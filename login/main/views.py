@@ -392,15 +392,7 @@ def task_done():
     print(task_time)
     #print("done" + task)
     
-    """if task_time == 0:
-        return redirect(url_for("show_entries_taskm"))
-    elif task_time == 1:
-        return redirect(url_for("show_entries_taskw"))
-    elif task_time == 2:
-        return redirect(url_for("show_entries_taskn"))
-    else:
-<<<<<<< HEAD
-        return redirect(url_for("show_entries_taskm"))"""
+    
 
     conn = sqlite3.connect("test.db")
     cur = conn.cursor()
@@ -447,9 +439,17 @@ def task_done():
     cur.close()
     conn.commit()
     conn.close()
+    if task_time == 0:
+        return redirect(url_for("show_entries_taskm"))
+    elif task_time == 1:
+        return redirect(url_for("show_entries_taskw"))
+    elif task_time == 2:
+        return redirect(url_for("show_entries_taskn"))
+    else:
+        return redirect(url_for("show_entries_taskm"))
     
         #print("===== task_time error ======")
-    return redirect(url_for("show_entries_taskm"))
+    #return redirect(url_for("show_entries_taskm"))
 
 ### パスワードの変更
 # メールとユーザ名を入力、メールの送信
