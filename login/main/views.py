@@ -543,6 +543,8 @@ def task_done():
 
     df = pd.read_sql('SELECT * FROM monthly_data', conn)
     ids = df['id'].values.tolist()
+    user_id = df['user_id'].values.tolist()
+    date = df['date'].values.tolist()
     new_id = max(ids)+1
     
     cur.close()
@@ -560,7 +562,16 @@ def task_done():
     sql_insert_many = "INSERT INTO monthly_data VALUES (?, ?, ?, ?, ?, ?)"
 
     # データの挿入
-    cur.execute(sql_insert_many, (int(new_id), session.get("user_id"), point_per_m, point_per_d, point_per_n, str(dt_now)))
+    jadge = 0
+    
+
+    for i in range(len(ids)):
+        if user_id[i] == session["user_id"] and date[i] == dt_now:
+            jadge += 1
+            cur.execute("update monthly_data set point_m=?, point_d=?, point_n=? where id=?",(point_per_m, point_per_d, point_per_n, i))
+
+    if jadge == 0:
+        cur.execute(sql_insert_many, (int(new_id), session.get("user_id"), point_per_m, point_per_d, point_per_n, str(dt_now)))
     
     cur.close()
     conn.commit()
