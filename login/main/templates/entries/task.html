@@ -62,6 +62,7 @@
 
     <!-- タスク -->
     {% for key in tasks  %}
+    {% if tasks[key][1] == 1 %}
       <div class="row elem_1">
 
         <div class="col-4 icon_s">
@@ -70,7 +71,6 @@
         <div class="col-8">
           <form action="{{ url_for('task_done') }}" method="post">
             <div style="display: grid;grid-template-columns: 4fr 1fr;">
-              {% if tasks[key][1] == 1 %}
               <div>
                 <input type="text" class="tasks" name="task" value="{{ key }}" readonly style="display: none;">
                 <input type="text" class="tasks" name="time" value="{{ task_time }}" readonly style="display: none;">
@@ -80,7 +80,15 @@
               <div style="position: relative;color: rgba(255, 31, 113);">
                 <Strong>{{tasks[key][2][task_time]}}点</Strong><!-- 朝 0 昼 1 夜 2-->
               </div>
-              {% else %}
+      {% else %}
+      <div class="row elem_1">
+
+        <div class="col-4 icon_s">
+          <img src="static/img/test.png" alt="task icon">
+        </div>
+        <div class="col-8">
+          <form action="{{ url_for('task_done') }}" method="post">
+            <div style="display: grid;grid-template-columns: 4fr 1fr;">
               <div>
                 <input type="text" class="tasks" name="task" value="{{ key }}" readonly style="display: none;">
                 <input type="text" class="tasks" name="time" value="{{ task_time }}" readonly style="display: none;">

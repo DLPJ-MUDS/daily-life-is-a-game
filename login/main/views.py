@@ -8,6 +8,7 @@ import datetime
 from models import User
 import sqlite3
 import pandas as pd
+import hashlib
 
 
 dt_now = datetime.datetime.now()
@@ -422,16 +423,17 @@ def signin():
                 newusername = request.form["newusername"]
                 newpassword = request.form["newpassword"]
                 email = request.form["email"]
+                hash_name = hashlib.md5(newusername.encode()).hexdigest()
 
                 conn = sqlite3.connect("test.db")
                 cur = conn.cursor()
 
                 #cur.executemany("insert into users(user_id, name, password) values(int("+str(new_user_id)+"), '"+newusername+"', '"+newpassword+"');")
                 # SQLテンプレート
-                sql_insert_many = "INSERT INTO users VALUES (?, ?, ?, ?, ?)"
+                sql_insert_many = "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)"
 
                 # データの挿入
-                cur.execute(sql_insert_many, (int(new_user_id), int(new_user_id), str(newusername), str(newpassword), email))
+                cur.execute(sql_insert_many, (int(new_user_id), int(new_user_id), str(newusername), str(newpassword), email, str(hash_name)))
                 cur.close()
                 conn.commit()
                 conn.close()
@@ -582,9 +584,29 @@ def task_done():
 def enteremail():
     if request.method == "POST":
         session["reset_username"] = str(request.form["reset_username"])
+        hash_name = hashlib.md5(session["reset_username"].encode()).hexdigest()
         session["email"] = str(request.form["email"])
         to_mail(session["reset_username"], session["email"])
 
+        conn = sqlite3.connect("test.db")
+        cur = conn.cursor()
+        # dbをpandasで読み出す。
+        df = pd.read_sql("SELECT hash_name, email FROM users WHERE hash_name='{}'".format(hash_name), conn)
+        cur.close()
+        conn.close()
+
+        db_hash_name = df.values.tolist()[0][0]
+        db_email = df.values.tolist()[0][1]
+
+        if (hash_name==db_hash_name) and (session["email"]==db_email):
+            to_mail(session["reset_username"], session["email"])
+            return redirect(url_for("confirm"))
+        # elif (hash_name!=db_hash_name) and (session["email"]==db_email):
+        #     flash("登録されているユーザ名が一致しません")
+        # elif (hash_name==db_hash_name) and (session["email"]!=db_email):
+        #     flash("登録されているメールアドレスが一致しません")
+        else:
+            flash("登録されているユーザ名とメールアドレスが一致しません")
         return redirect(url_for("confirm"))
     return render_template("enteremail.html")
 
@@ -604,7 +626,7 @@ def passwordchange():
 
             conn = sqlite3.connect("test.db")
             cur = conn.cursor()
-            sql_update = "UPDATE users SET password=? WHERE name=?"
+            sql_update = "UPDATE users SET password=? WHERE hash_name=?"
             cur.execute(sql_update, (pword, reset_username))
             cur.close()
             conn.commit()
