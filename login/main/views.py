@@ -607,13 +607,12 @@ def enteremail():
         cur.close()
         conn.close()
 
-        if len(df.values.tolist()) != 2:
+        if len(df.values.tolist()) != 1:
             flash("登録されているユーザ名とメールアドレスが一致しません")
         else:
             db_hash_name = df.values.tolist()[0][0]
             db_email = df.values.tolist()[0][1]
-            # list index out of range
-
+            
             if (hash_name==db_hash_name) and (session["email"]==db_email):
                 to_mail(session["reset_username"], session["email"])
                 return redirect(url_for("confirm"))
