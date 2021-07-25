@@ -568,7 +568,7 @@ def task_done():
     for i in range(len(ids)):
         if user_id[i] == session["user_id"] and date[i] == dt_now:
             jadge += 1
-            cur.execute("update monthly_data set point_m=?, point_d=?, point_n=? where id=?",(point_per_m, point_per_d, point_per_n, i))
+            cur.execute("update monthly_data set point_m=?, point_d=?, point_n=? where id=?",(point_per_m, point_per_d, point_per_n, i+1))
 
     if jadge == 0:
         cur.execute(sql_insert_many, (int(new_id), session.get("user_id"), point_per_m, point_per_d, point_per_n, str(dt_now)))
