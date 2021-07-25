@@ -79,6 +79,7 @@ def show_entries_taskm():
         point_d = df['point_d'].values.tolist()
         point_n = df['point_n'].values.tolist()
         ta_tasks = {}
+        print(session["user_id"])
         for x,y,z1,z2,z3,p in zip(task_texts,task_ids,point_m,point_d,point_n,user_ids):
             if int(p) == 0 or int(p) == int(session["user_id"]):
                 if z1 != 0:
@@ -345,7 +346,7 @@ def signin():
                 conn.close()
                 session["logged_in"] = True # logged_inにTrueを代入
                 session["username"] = newusername
-                session["user_id"] = user_ids
+                session["user_id"] = int(new_user_id)
                 return redirect(url_for("show_entries"))
     #users = session_1.query(User).all()
     return render_template("signin.html")
