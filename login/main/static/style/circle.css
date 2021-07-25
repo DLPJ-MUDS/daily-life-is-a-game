@@ -873,7 +873,7 @@
   color: rgba(89, 192, 220);
 }
 .c100.green.dark .bar, .c100.green.dark .fill {
-  border-color: #rgba(89, 192, 220) !important;
+  border-color: rgba(89, 192, 220) !important;
 }
 .c100.green.dark > span {
   color: rgba(89, 192, 220);
