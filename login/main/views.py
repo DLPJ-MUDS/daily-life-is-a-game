@@ -337,7 +337,7 @@ def show_entries_graph():
                     datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([0,0,0])
                 else:
                     point = user_df[user_df["date"] == (dt_now -datetime.timedelta(days=i)).strftime('%Y/%m/%d')]
-                    datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([str(point['point_m'].values[0]), str(point['point_d'].values[0]), str(point['point_n'].values[0])])
+                    datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([str(int(point['point_m'].values[0])), str(int(point['point_d'].values[0])), str(int(point['point_n'].values[0]))])
     return render_template("entries/graph.html",da=datas)
 
 #グラフ用　画面遷移
@@ -382,7 +382,7 @@ def graph_many():
                         datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([0,0,0])
                     else:
                         point = user_df[user_df["date"] == (dt_now -datetime.timedelta(days=i-subtra)).strftime('%Y/%m/%d')]
-                        datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([str(point['point_m'].values[0]), str(point['point_d'].values[0]), str(point['point_n'].values[0])])
+                        datas[(dt_now -i_time).strftime('%Y/%m/%d')] = ([str(int(point['point_m'].values[0])), str(int(point['point_d'].values[0])), str(int(point['point_n'].values[0]))])
         return render_template("entries/graph.html",da=datas)
 
 #ユーザー画面用
