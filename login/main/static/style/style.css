@@ -31,8 +31,8 @@ body{
     text-align: center;
     max-width: 220px;
     margin-top: 5%;
-    margin-right: 10%;
-    margin-left: 1%;
+    margin-right: 3%;
+    margin-left: 3%;
     padding: 1em 1em;
     /* margin: 2em 0; */
     background: rgb(227, 244, 249);
@@ -110,6 +110,7 @@ p{
     text-decoration: none;
 }
 
+
 .elem_3 > a{
     /* color:rgb(54,145,169); */
     color: black;
@@ -165,7 +166,13 @@ p{
 
 .icon_s_add{
     margin-top: 10%;
-    margin-left:80%;
+    /* margin-left:80%; */
+    margin-bottom: 0;
+}
+
+
+.icon_s_done{
+    width:100px;
 }
 
 
@@ -507,19 +514,22 @@ background    : rgba(191, 191, 191);
 
 
 
-.radiobutton {
+.radio_btn {
     display: none;
   }
+
 
 .radiobox > label {
     background-color: rgba(191, 191, 191);
     color:rgb(255, 255, 255);
     /* padding: 10px 20px; */
-    width: 200px;
-    padding: 20px;
+    width: 120px;
+    padding: 15px 2px;
+    margin: 1%;
+    font-size: 15px;
   }
 
-  .radiobutton:checked + label {
+  .radio_btn:checked + label {
     background-color: rgba(89, 192, 220);
   }
 
@@ -538,7 +548,7 @@ background    : rgba(191, 191, 191);
     border-radius: 15px;
   }
   
-  
+
   .balloon1-left:before {
     content: "";
     position: absolute;
