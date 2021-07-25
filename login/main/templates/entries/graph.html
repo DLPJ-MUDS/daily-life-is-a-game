@@ -29,11 +29,11 @@
     </div>
     <br>
     {% for key in da  %}
-    <h2>{{ key }}</h2>
+    <h2 class="elem_1">{{ key }}</h2>
     <br>
     <div class="graph_wrapper">
       <div style="display: flex;justify-content:space-between">
-        <span style="display: inline-block;"><strong>Morning</strong></span>
+        <span style="display: inline-block; color:rgb(140,140,140);"><strong>Morning</strong></span>
         <div style="display: inline-block;">
           <div class="for-div-1 c100 green">
             <span>{{ da[key][0] }}%</span>
@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        <span style="display: inline-block;"><strong>Working</strong></span>
+        <span style="display: inline-block; color:rgb(140,140,140);"><strong>Working</strong></span>
         <div style="display: inline-block;">
           <div class="for-div-2 c100 green">
             <span>{{ da[key][1] }}%</span>
@@ -53,7 +53,7 @@
             </div>
           </div>
         </div>
-        <span style="display: inline-block;"><strong>Night</strong></span>
+        <span style="display: inline-block; color:rgb(140,140,140);"><strong>Night</strong></span>
         <div style="display: inline-block;">
           <div class="for-div-3 c100 green">
             <span>{{ da[key][2] }}%</span>
@@ -80,7 +80,7 @@
           e.classList.add("p"+ ggfor[2]);
       }})
     </script>
-    <hr style="height: 1px; background-color: black;width: 95%;">
+    <!--<hr style="height: 1px; background-color: rgb(191, 191, 191);width: 95%;">-->
     <!-- <# キーの値とキーを元に辞書から取り出した値が表示される #> -->
     {% endfor %}
 
