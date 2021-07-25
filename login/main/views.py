@@ -607,19 +607,22 @@ def enteremail():
         cur.close()
         conn.close()
 
-        db_hash_name = df.values.tolist()[0][0]
-        db_email = df.values.tolist()[0][1]
-
-        if (hash_name==db_hash_name) and (session["email"]==db_email):
-            to_mail(session["reset_username"], session["email"])
-            return redirect(url_for("confirm"))
-        # elif (hash_name!=db_hash_name) and (session["email"]==db_email):
-        #     flash("登録されているユーザ名が一致しません")
-        # elif (hash_name==db_hash_name) and (session["email"]!=db_email):
-        #     flash("登録されているメールアドレスが一致しません")
-        else:
+        if len(df.values.tolist()) != 2:
             flash("登録されているユーザ名とメールアドレスが一致しません")
-        return redirect(url_for("confirm"))
+        else:
+            db_hash_name = df.values.tolist()[0][0]
+            db_email = df.values.tolist()[0][1]
+            # list index out of range
+
+            if (hash_name==db_hash_name) and (session["email"]==db_email):
+                to_mail(session["reset_username"], session["email"])
+                return redirect(url_for("confirm"))
+            # elif (hash_name!=db_hash_name) and (session["email"]==db_email):
+            #     flash("登録されているユーザ名が一致しません")
+            # elif (hash_name==db_hash_name) and (session["email"]!=db_email):
+            #     flash("登録されているメールアドレスが一致しません")
+            else:
+                flash("登録されているユーザ名とメールアドレスが一致しません")
     return render_template("enteremail.html")
 
 # メールの送信確認
