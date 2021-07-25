@@ -353,6 +353,8 @@ def signin():
 
 @app.route("/task_done", methods=["GET", "POST"])
 def task_done():
+    if (not session.get("logged_in")) or  (not session.get("username"))or  (not session.get("user_id")): # ログインしてない場合ログイン画面に誘導
+            return redirect(url_for("login"))
     task = request.form["task"]
     task_time = int(request.form["time"])
     print(task_time)
