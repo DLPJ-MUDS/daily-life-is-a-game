@@ -45,6 +45,7 @@ def login():
             if request.form["password"] == passwords[names.index(request.form["username"])]:
                 session["logged_in"] = True # logged_inにTrueを代入
                 session["username"] = request.form["username"]
+                print(user_ids[names.index(request.form["username"])])
                 session["user_id"] = user_ids[names.index(request.form["username"])]
                 return redirect(url_for("show_entries"))
             else:
@@ -78,13 +79,14 @@ def show_entries_taskm():
         point_d = df['point_d'].values.tolist()
         point_n = df['point_n'].values.tolist()
         ta_tasks = {}
-        for x,y,z1,z2,z3 in zip(task_texts,task_ids,point_m,point_d,point_n):
-            if z1 != 0:
-                ta_tasks[y] = [x,0,[z1,z2,z3]]
+        for x,y,z1,z2,z3,p in zip(task_texts,task_ids,point_m,point_d,point_n,user_ids):
+            if int(p) == 0 or int(p) == int(session["user_id"]):
+                if z1 != 0:
+                    ta_tasks[y] = [x,0,[z1,z2,z3]]
 
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
-    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks,task_time=0)
+    return render_template("entries/task.html",user_id=session["user_id"],user_name=session["username"], tasks=ta_tasks,task_time=0)
 
 @app.route("/taskw.html")
 def show_entries_taskw():
@@ -107,12 +109,13 @@ def show_entries_taskw():
         point_d = df['point_d'].values.tolist()
         point_n = df['point_n'].values.tolist()
         ta_tasks = {}
-        for x,y,z1,z2,z3 in zip(task_texts,task_ids,point_m,point_d,point_n):
-            if z2 != 0:
-                ta_tasks[y] = [x,0,[z1,z2,z3]]
+        for x,y,z1,z2,z3,p in zip(task_texts,task_ids,point_m,point_d,point_n,user_ids):
+            if int(p) == 0 or int(p) == int(session["user_id"]):
+                if z2 != 0:
+                    ta_tasks[y] = [x,0,[z1,z2,z3]]
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
-    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks,task_time=1)
+    return render_template("entries/task.html",user_id=session["user_id"],user_name=session["username"], tasks=ta_tasks,task_time=1)
 
 @app.route("/taskn.html")
 def show_entries_taskn():
@@ -135,13 +138,14 @@ def show_entries_taskn():
         point_d = df['point_d'].values.tolist()
         point_n = df['point_n'].values.tolist()
         ta_tasks = {}
-        for x,y,z1,z2,z3 in zip(task_texts,task_ids,point_m,point_d,point_n):
-            if z3 != 0:
-                ta_tasks[y] = [x,0,[z1,z2,z3]]
+        for x,y,z1,z2,z3,p in zip(task_texts,task_ids,point_m,point_d,point_n,user_ids):
+            if int(p) == 0 or int(p) == int(session["user_id"]):
+                if z3 != 0:
+                    ta_tasks[y] = [x,0,[z1,z2,z3]]
 
 
         #today_data=[point_m[names.index(session.get("username"))], point_d[names.index(session.get("username"))], point_n[names.index(session.get("username"))]]
-    return render_template("entries/task.html",user_id=session["userid"],user_name=session["username"], tasks=ta_tasks,task_time=2)
+    return render_template("entries/task.html",user_id=session["user_id"],user_name=session["username"], tasks=ta_tasks,task_time=2)
 
 # タスク追加用
 @app.route("/addtask", methods=["GET", "POST"])
