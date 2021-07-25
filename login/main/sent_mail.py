@@ -6,8 +6,8 @@ def to_mail(username, email):
     sendAddress = "s2022055@stu.musashino-u.ac.jp"
     password = "wlfxhlgmcybxkwsp"
 
-    subject = "daily life is a game パスワードリセット"
-    bodyText = """daily life is a gameのパスワードリセットを行います。リセットを行う際には下のURLを押して、手続きを進めて下さい。
+    subject = "Daily Life is a Game パスワードリセット"
+    bodyText = """Daily Life is a Gameのパスワードリセットを行います。リセットを行う際には下のURLを押して、手続きを進めて下さい。
 http://localhost:5000/passwordchange?reset_username=""" + username
     fromAddress = "s2022055@stu.musashino-u.ac.jp"
     toAddress = str(email)
