@@ -471,6 +471,20 @@ def task_done():
     point_d = df['point_d'].values.tolist()
     point_n = df['point_n'].values.tolist()
     task_id = df['task_id'].values.tolist()
+    task_user_id = df['user_id'].values.tolist()
+
+    full_point_m = 0
+    full_point_d = 0
+    full_point_n = 0
+    for i in range(len(task_id)):
+        if task_user_id[i] == 0 or task_user_id[i] == session["user_id"]:
+            full_point_m += point_m[i]
+            full_point_d += point_d[i]
+            full_point_n += point_n[i]
+
+
+
+
     #print(get_task_id)
     get_point_m = 0
     get_point_d = 0
@@ -482,19 +496,75 @@ def task_done():
     else:
         get_point_n = point_n[task_id.index(int(get_task_id))]
 
+    
+    
+
+
     dt_now = datetime.datetime.now()
     dt_now = dt_now.strftime('%Y/%m/%d')
+    print(dt_now)
 
     #cur.executemany("insert into users(user_id, name, password) values(int("+str(new_user_id)+"), '"+newusername+"', '"+newpassword+"');")
     # SQLテンプレート
     sql_insert_many = "INSERT INTO daily_data VALUES (?, ?, ?, ?, ?, ?, ?)"
 
     # データの挿入
-    print((int(new_id), session["user_id"], get_task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
+    #print((int(new_id), session["user_id"], get_task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
     cur.execute(sql_insert_many, (int(new_id), session.get("user_id"), get_task_id, get_point_m, get_point_d, get_point_n, str(dt_now)))
+    
+    df = pd.read_sql('SELECT * FROM daily_data', conn)
+
+    point_m = df['point_m'].values.tolist()
+    point_d = df['point_d'].values.tolist()
+    point_n = df['point_n'].values.tolist()
+    task_user_id = df['user_id'].values.tolist()
+
+    have_point_m = 0
+    have_point_d = 0
+    have_point_n = 0
+    for i in range(len(point_m)):
+        if task_user_id[i] == 0 or task_user_id[i] == session["user_id"]:
+            have_point_m += point_m[i]
+            have_point_d += point_d[i]
+            have_point_n += point_n[i]
+
+
+    
+    
     cur.close()
     conn.commit()
     conn.close()
+
+    conn = sqlite3.connect("test.db")
+    cur = conn.cursor()
+
+    df = pd.read_sql('SELECT * FROM monthly_data', conn)
+    ids = df['id'].values.tolist()
+    new_id = max(ids)+1
+    
+    cur.close()
+    conn.close()
+
+    conn = sqlite3.connect("test.db")
+    cur = conn.cursor()
+
+    point_per_m = have_point_m / full_point_m * 100
+    point_per_d = have_point_d / full_point_d * 100
+    point_per_n = have_point_n / full_point_n * 100
+
+    #cur.executemany("insert into users(user_id, name, password) values(int("+str(new_user_id)+"), '"+newusername+"', '"+newpassword+"');")
+    # SQLテンプレート
+    sql_insert_many = "INSERT INTO monthly_data VALUES (?, ?, ?, ?, ?, ?)"
+
+    # データの挿入
+    cur.execute(sql_insert_many, (int(new_id), session.get("user_id"), point_per_m, point_per_d, point_per_n, str(dt_now)))
+    
+    cur.close()
+    conn.commit()
+    conn.close()
+
+
+
 
     if task_time == 0:
         return redirect(url_for("show_entries_taskm"))
