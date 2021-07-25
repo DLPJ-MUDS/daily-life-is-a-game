@@ -25,26 +25,34 @@
       <a class="nav-link" href="./graph.html">GRAPH</a>
     </div>-->
 
-<div class="row user_btn">
-    <div class="col-sm">
-        <div class="login_form">          
-                <a class="nav-link" href="./taskm.html"><button type="submit" class="btn_pink_4">Task</button></a>
+    <div class="row user_btn">
+        <div class="col-sm">
+            <div class="login_form">          
+                    <a class="nav-link" href="./taskm.html"><button type="submit" class="btn_pink_4">Task</button></a>
+            </div>
         </div>
-    </div>
 
-    <div class="col-sm">
-        <div class="login_form">            
-            <a class="nav-link" href="./graph.html"><button type="submit" class="btn_pink_4">Graph</button></a>
+        <div class="col-sm">
+            <div class="login_form">            
+                <a class="nav-link" href="./graph.html"><button type="submit" class="btn_pink_4">Graph</button></a>
+            </div>
         </div>
-    </div>
 
-    <div class="col-sm">
-        <div class="login_form">
-            <form action="{{ url_for('logout') }}" method=get>
-                <a class="nav-link"><button type="submit" class="btn_pink_5">Logout</button></a>
-            </form>
+        <div class="col-sm">
+            <div class="login_form">
+                <form action="{{ url_for('logout') }}" method=get>
+                    <a class="nav-link"><button type="submit" class="btn_pink_5">Logout</button></a>
+                </form>
+            </div>
         </div>
     </div>
-</div>        
+    <div class="row">
+        <div class="col-4 icon_s">
+            <img src="static/img/task_done_2.png" alt="task icon">
+            <div class="balloon1-left">
+                <p>Task done... (タスク丼)</p>
+            </div>
+        </div>
+    </div>
     <br>
 {% endblock %}
