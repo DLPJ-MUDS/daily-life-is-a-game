@@ -83,7 +83,25 @@
     <!--<hr style="height: 1px; background-color: rgb(191, 191, 191);width: 95%;">-->
     <!-- <# キーの値とキーを元に辞書から取り出した値が表示される #> -->
     {% endfor %}
-
-    <div style="width: 90%;margin-left: 5%;"><div id='calendar'></div></div>
+    <br><br>
+    <div style="display: flex;justify-content:space-between">
+      <div>
+        <form action="./graph.html" method=post>
+            <input type="number"  name="subtra" value="-1" readonly style="display: none;">
+            <button type="submit" class="btn_pink_2">過去へ</button>
+        </form>
+      </div>
+      <div>
+        <form action="./graph.html" method=get>
+            <button type="submit" class="btn_pink_2">今日へ</button>
+        </form>
+      </div>
+      <div>
+        <form action="./graph.html" method=post>
+            <input type="number"  name="subtra" value="1" readonly style="display: none;">
+            <button type="submit" class="btn_pink_2">未来へ</button>
+        </form>
+      </div>
+    </div>
   </div>
 {% endblock %}
