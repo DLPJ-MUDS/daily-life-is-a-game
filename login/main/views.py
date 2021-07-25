@@ -366,6 +366,7 @@ def task_done():
     elif task_time == 2:
         return redirect(url_for("show_entries_taskn"))
     else:
+        print("===== task_time error ======")
         return redirect(url_for("show_entries_taskm"))
 
 ### パスワードの変更
