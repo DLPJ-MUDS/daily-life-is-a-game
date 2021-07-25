@@ -1,34 +1,37 @@
 <!-- このページがサインインページ -->
 {% extends "layout.html" %}
 {% block title %}
-<title>signin | daily life is a game</title>
+<title>addtask | daily life is a game</title>
 {% endblock %}
 {% block body %}
     <div class="login_form">
-        <form action="{{ url_for('signin') }}" method=post>
+        <form action="{{ url_for('addtask') }}" method=post>
             <div class="login">
 
-                <label for="InputTitle">New user name</label>
+                <label for="InputTitle">TASK内容</label>
 
                 <div class="right_side">
-                    <input type="text" id="InputTitle" name="newusername">
+                    <input type="text" id="InputTask" name="newtask">
                 </div>
             </div>
 
             <div class="login">
-                <label for="InputPassword">New password</label>
+                <label for="InputPassword">重要度</label>
 
                 <div class="right_side">
-                    <input type="password" id="InputPassword" name="newpassword">
+                    <input type="number" id="InputPoint" name="newpoint">
                 </div>
             </div>
 
             <!-- これはなんですか... -->
-            <!-- これは即席メアド欄です。。！　ごめんちゃい-->
             <div class="login">
-                <label for="InputPassword">Your Email</label>
+                <label for="InputPassword">時間帯</label>
                 <div class="right_side">
-                    <input type="email" id="InputPassword" name="email">
+                    <select name="selecttime">
+                        <option value="m">morning</option>
+                        <option value="d">day</option>
+                        <option value="n">night</option>
+                    </select>
                 </div>
             </div>
             <!-- /これはなんですか... -->
