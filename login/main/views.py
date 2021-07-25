@@ -422,12 +422,24 @@ def confirm():
 @app.route("/passwordchange", methods=["GET", "POST"])
 def passwordchange():
     if request.method == "POST":
-        if request.form["password"] == request.form["password_again"]:
+        if request.form["pword"] == request.form["pword_again"]:
+            reset_username = str(session["reset_username"])
+            pword = str(request.form["pword"])
+
+            conn = sqlite3.connect("test.db")
+            cur = conn.cursor()
+            sql_update = "UPDATE users SET password=? WHERE name=?"
+            cur.execute(sql_update, (pword, reset_username))
+            cur.close()
+            conn.commit()
+            conn.close()
+
             flash("パスワードを変更しました")
             return redirect(url_for("login"))
         else:
             flash("同じパスワードを入力して下さい")
             return render_template("passwordchange.html")
-
-    flash("新しいパスワードを入力してください")
-    return render_template("passwordchange.html")
+    else:
+        session["reset_username"] = request.args.get("reset_username")
+        flash("新しいパスワードを入力してください")
+        return render_template("passwordchange.html")
